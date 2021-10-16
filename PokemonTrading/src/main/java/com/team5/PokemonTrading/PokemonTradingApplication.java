@@ -32,5 +32,4 @@ public class PokemonTradingApplication {
 		return new CorsFilter(urlBasedCorsConfigurationSource);
 	}
 
-
 }
