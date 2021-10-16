@@ -18,6 +18,7 @@ public class Pokemon implements Serializable {
         this.imgUrl = imgUrl;
     }
 
+
     public Pokemon() {
     }
 
