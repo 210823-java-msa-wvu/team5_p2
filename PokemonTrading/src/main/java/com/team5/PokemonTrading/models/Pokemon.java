@@ -10,6 +10,14 @@ public class Pokemon implements Serializable {
     @Column(nullable = false, updatable = false)
     private Integer id;
     private String name;
+    private String imgUrl;
+
+    public Pokemon(Integer id, String name, String imgUrl) {
+        this.id = id;
+        this.name = name;
+        this.imgUrl = imgUrl;
+    }
+
 
     public Pokemon() {
     }
@@ -44,6 +52,7 @@ public class Pokemon implements Serializable {
         return "Pokemon{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
                 '}';
     }
 }
