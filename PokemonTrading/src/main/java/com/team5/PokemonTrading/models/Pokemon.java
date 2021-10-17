@@ -1,3 +1,4 @@
+
 package com.team5.PokemonTrading.models;
 
 import javax.persistence.*;
@@ -12,23 +13,26 @@ public class Pokemon implements Serializable {
     private String name;
     private String imgUrl;
 
+    public Pokemon() {
+    }
+
+    public Pokemon(String name, String imgUrl) {
+        this.name = name;
+        this.imgUrl = imgUrl;
+    }
+
     public Pokemon(Integer id, String name, String imgUrl) {
         this.id = id;
         this.name = name;
         this.imgUrl = imgUrl;
     }
 
-
-    public Pokemon() {
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public Pokemon(String name) {
-        this.name = name;
-    }
-
-    public Pokemon(Integer id, String name) {
-        this.id = id;
-        this.name = name;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public Integer getId() {
@@ -56,3 +60,4 @@ public class Pokemon implements Serializable {
                 '}';
     }
 }
+
