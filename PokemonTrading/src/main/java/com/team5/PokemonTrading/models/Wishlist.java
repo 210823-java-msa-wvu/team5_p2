@@ -1,6 +1,5 @@
 package com.team5.PokemonTrading.models;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -10,15 +9,13 @@ public class Wishlist {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid",insertable = false)
-    @Column(name = "userid")
-    private Integer userid;
+    private User userid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pokeid",insertable = false)
-    @Column(name = "pokeid")
-    private Integer pokeid;
+    private Pokemon pokeid;
 
-    public Wishlist(Integer userid, Integer pokeid) {
+    public Wishlist(User userid, Pokemon pokeid) {
         this.userid = userid;
         this.pokeid = pokeid;
     }
@@ -26,19 +23,19 @@ public class Wishlist {
     public Wishlist() {
     }
 
-    public Integer getUserid() {
+    public User getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(User userid) {
         this.userid = userid;
     }
 
-    public Integer getPokeid() {
+    public Pokemon getPokeid() {
         return pokeid;
     }
 
-    public void setPokeid(Integer pokeid) {
+    public void setPokeid(Pokemon pokeid) {
         this.pokeid = pokeid;
     }
 
