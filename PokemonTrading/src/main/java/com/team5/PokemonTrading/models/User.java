@@ -4,7 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Users implements Serializable {
+
+@Table(name="users")
+
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     // @Column(nullable = false, updatable = false) //so it can't be updated in our database
@@ -17,14 +20,21 @@ public class Users implements Serializable {
     @Column(name="balance")
     private Float balance;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(Integer id) {
+    public User(Integer id) {
         this.id = id;
     }
 
-    public Users(Integer id, String username, String password, Float balance) {
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+
+    public User(Integer id, String username, String password, Float balance) {
         this.id = id;
         this.username = username;
         this.password = password;
