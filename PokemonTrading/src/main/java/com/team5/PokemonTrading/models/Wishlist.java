@@ -1,6 +1,5 @@
 package com.team5.PokemonTrading.models;
 
-
 import javax.persistence.*;
 
 @Entity
