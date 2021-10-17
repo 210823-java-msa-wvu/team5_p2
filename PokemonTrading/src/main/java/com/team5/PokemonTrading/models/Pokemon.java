@@ -59,5 +59,3 @@ public class Pokemon implements Serializable {
                 '}';
     }
 }
-
-

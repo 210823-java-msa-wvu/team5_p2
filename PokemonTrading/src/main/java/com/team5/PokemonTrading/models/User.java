@@ -4,11 +4,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+
 @Table(name="users")
+
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, updatable = false) //so it can't be updated in our database
+    // @Column(nullable = false, updatable = false) //so it can't be updated in our database
+    @Column(name="id")
     private Integer id;
     @Column(name="username")
     private String username;
@@ -23,6 +26,13 @@ public class User implements Serializable {
     public User(Integer id) {
         this.id = id;
     }
+
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
 
     public User(Integer id, String username, String password, Float balance) {
         this.id = id;
