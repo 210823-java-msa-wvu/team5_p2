@@ -1,4 +1,3 @@
-
 package com.team5.PokemonTrading.models;
 
 import javax.persistence.*;
@@ -60,4 +59,3 @@ public class Pokemon implements Serializable {
                 '}';
     }
 }
-
