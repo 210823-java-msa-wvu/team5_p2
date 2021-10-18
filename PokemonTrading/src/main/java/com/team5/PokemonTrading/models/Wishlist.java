@@ -7,39 +7,55 @@ import javax.persistence.*;
 @Table(name="wishlist")
 public class Wishlist {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid",insertable = false)
+    private User userid;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pokeid",insertable = false)
+    private Pokemon pokeid;
+
     @Id
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "userid",insertable = false)
-    @Column(name = "userid")
-    private Integer userid;
-
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "pokeid",insertable = false)
-    @Column(name = "pokeid")
-    private Integer pokeid;
-
-    public Wishlist(Integer userid, Integer pokeid) {
-        this.userid = userid;
-        this.pokeid = pokeid;
-    }
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    private Integer id;
 
     public Wishlist() {
     }
 
-    public Integer getUserid() {
+    public Wishlist(User userid, Pokemon pokeid) {
+        this.userid = userid;
+        this.pokeid = pokeid;
+    }
+
+    public Wishlist(User userid, Pokemon pokeid, Integer id) {
+        this.userid = userid;
+        this.pokeid = pokeid;
+        this.id = id;
+    }
+
+    public User getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(User userid) {
         this.userid = userid;
     }
 
-    public Integer getPokeid() {
+    public Pokemon getPokeid() {
         return pokeid;
     }
 
-    public void setPokeid(Integer pokeid) {
+    public void setPokeid(Pokemon pokeid) {
         this.pokeid = pokeid;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
@@ -47,6 +63,7 @@ public class Wishlist {
         return "Wishlist{" +
                 "userid=" + userid +
                 ", pokeid=" + pokeid +
+                ", id=" + id +
                 '}';
     }
 }
