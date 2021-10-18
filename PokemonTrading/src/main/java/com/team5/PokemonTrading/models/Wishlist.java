@@ -8,13 +8,9 @@ import javax.persistence.*;
 public class Wishlist {
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid",insertable = false)
     @Column(name = "userid")
     private Integer userid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pokeid",insertable = false)
     @Column(name = "pokeid")
     private Integer pokeid;
 
