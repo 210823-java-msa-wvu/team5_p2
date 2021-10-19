@@ -41,7 +41,8 @@ public class WishlistResource {
         User user = om.readValue(userinfo,User.class);
         Wishlist wl = wishlistServices.getById(id);
         //check to see if the wishlist owner matches cookie holder
-        if(wl.getUserid().getId().equals(user.getId())) {
+        if(wl.getUserid().getId().equals(user.getId())
+                && wl.getUserid().getPassword().equals((user.getPassword()))) {
             wishlistServices.deleteWishlist(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
