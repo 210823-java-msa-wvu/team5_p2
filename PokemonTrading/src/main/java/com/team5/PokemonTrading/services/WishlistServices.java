@@ -34,5 +34,17 @@ public class WishlistServices {
     }
 
 
+    public List<Wishlist> viewMyWishlist(User user){
+        List<Wishlist> wishlists = wishlistRepo.findAll();
+        List<Wishlist> myWishlists = new ArrayList<>();
+
+        for(Wishlist w : wishlists) {
+            if(w.getUserid().getId() == user.getId())
+               myWishlists.add(w);
+        }
+        return myWishlists;
+    }
+
+
 
 }
