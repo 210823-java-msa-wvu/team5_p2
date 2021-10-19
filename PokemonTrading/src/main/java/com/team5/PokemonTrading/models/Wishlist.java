@@ -16,9 +16,23 @@ public class Wishlist {
     private Pokemon pokeid;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Integer id;
+
+    public Wishlist() {
+    }
+
+    public Wishlist(User userid, Pokemon pokeid) {
+        this.userid = userid;
+        this.pokeid = pokeid;
+    }
+
+    public Wishlist(User userid, Pokemon pokeid, Integer id) {
+        this.userid = userid;
+        this.pokeid = pokeid;
+        this.id = id;
+    }
 
     public User getUserid() {
         return userid;

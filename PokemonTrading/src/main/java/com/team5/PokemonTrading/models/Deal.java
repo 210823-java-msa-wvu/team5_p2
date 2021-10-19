@@ -28,6 +28,18 @@ public class Deal implements Serializable {
     @ManyToOne
     @JoinColumn(name="pokeid",insertable = false)
     private Pokemon pokeId;
+
+    public Deal(Integer id, Integer type, Float price, User seller, LocalDate expireDate, Pokemon tradeFor, String description, Pokemon pokeId) {
+        this.id = id;
+        this.type = type;
+        this.price = price;
+        this.seller = seller;
+        this.expireDate = expireDate;
+        this.tradeFor = tradeFor;
+        this.description = description;
+        this.pokeId = pokeId;
+    }
+
     public Integer getId() {
         return id;
     }
