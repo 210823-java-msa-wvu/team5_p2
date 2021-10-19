@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     // @Column(nullable = false, updatable = false) //so it can't be updated in our database
     @Column(name="id")
     private Integer id;
