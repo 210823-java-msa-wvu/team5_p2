@@ -65,4 +65,28 @@ public class UserResource {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
     }
+    
+    //front end will send in a put request with request body of a json of form {"amount":"-399.99"}
+    @PutMapping(value = "/load",consumes = "application/json")
+    public ResponseEntity<?> loadBalance(@CookieValue("userinfo") String userinfo,
+                                         @RequestBody Map<String, String> json,
+                                         HttpServletResponse resp) throws JsonProcessingException {
+        ObjectMapper om = new ObjectMapper();
+        float loadAmount = Float.parseFloat(json.get("amount"));
+        //System.out.println(loadAmount);
+        //System.out.println(userinfo);
+        User u = om.readValue(userinfo,User.class);
+        float newAmount = u.getBalance()+loadAmount;
+        if(newAmount < 0){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        else{
+            u.setBalance(newAmount);
+            userServices.updateUser(u);
+            //save the updated user cookie back to the response body
+            Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
+            resp.addCookie(cookie);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+    }
 }
