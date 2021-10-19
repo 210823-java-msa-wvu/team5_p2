@@ -17,17 +17,17 @@ public class Deal implements Serializable {
     @Column(name="price")
     private Float price;
     @ManyToOne
-    @JoinColumn(name="id",insertable = false)
+    @JoinColumn(name="seller",insertable = false)
     private User seller;
     @Column(name="expire_date",columnDefinition = "DATE")
     private LocalDate expireDate;
     @ManyToOne
-    @JoinColumn(name="id",insertable = false)
+    @JoinColumn(name="trade_for",insertable = false)
     private Pokemon tradeFor;
     @Column
     private String description;
     @ManyToOne
-    @JoinColumn(name="id",insertable = false)
+    @JoinColumn(name="pokeid",insertable = false)
     private Pokemon pokeId;
 
     public Integer getId() {
