@@ -18,6 +18,8 @@ public class WishlistServices {
     @Autowired
     public WishlistServices(WishlistRepo wishlistRepo){ this.wishlistRepo = wishlistRepo;}
 
+    public Wishlist getById(int id){return wishlistRepo.getById(id);}
+
     public Wishlist addWishlist(Wishlist wishlist){ return wishlistRepo.save(wishlist);}
 
     public void deleteWishlist(Integer id){ wishlistRepo.deleteById(id);}
