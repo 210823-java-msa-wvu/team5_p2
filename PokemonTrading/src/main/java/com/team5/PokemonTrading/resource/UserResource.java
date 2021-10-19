@@ -1,5 +1,7 @@
 package com.team5.PokemonTrading.resource;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team5.PokemonTrading.models.Deal;
 import com.team5.PokemonTrading.models.Transaction;
 import com.team5.PokemonTrading.models.User;
