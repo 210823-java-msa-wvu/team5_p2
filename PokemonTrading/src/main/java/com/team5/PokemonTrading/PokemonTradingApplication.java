@@ -1,8 +1,11 @@
 package com.team5.PokemonTrading;
 
+import org.apache.tomcat.util.http.LegacyCookieProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -36,5 +39,15 @@ public class PokemonTradingApplication {
 		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
+	}
+
+	@Bean
+	public WebServerFactoryCustomizer customizer() {
+		return container -> {
+			if (container instanceof TomcatServletWebServerFactory) {
+				TomcatServletWebServerFactory tomcat = (TomcatServletWebServerFactory) container;
+				tomcat.addContextCustomizers(context -> context.setCookieProcessor(new LegacyCookieProcessor()));
+			}
+		};
 	}
 }
