@@ -1,10 +1,13 @@
 package com.team5.PokemonTrading.resource;
 
+import com.team5.PokemonTrading.models.User;
 import com.team5.PokemonTrading.models.Wishlist;
 import com.team5.PokemonTrading.services.WishlistServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/wishlist")
@@ -19,6 +22,12 @@ public class WishlistResource {
     public ResponseEntity<Wishlist> addWishlist(@RequestBody Wishlist wishlist) {
         Wishlist newWishlist = wishlistServices.addWishlist(wishlist);
         return new ResponseEntity<>(newWishlist, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/view")
+    public ResponseEntity<List<Wishlist>> viewMyWishlist(@RequestBody User user) {
+        List<Wishlist> myItems = wishlistServices.viewMyWishlist(user);
+        return new ResponseEntity<>(myItems, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
