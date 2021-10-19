@@ -2,6 +2,7 @@ package com.team5.PokemonTrading.resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team5.PokemonTrading.exceptions.UserNotFoundException;
 import com.team5.PokemonTrading.models.User;
 import com.team5.PokemonTrading.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +25,25 @@ public class FrontResource {
     @Autowired
     public FrontResource(UserServices us){userServices=us;}
 
+    //json web token
     @PostMapping(path = "/login",consumes = "application/json")
     public ResponseEntity<?> userLogin(@RequestBody Map<String,String> json, HttpServletResponse resp) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         String username = json.get("username");
         String password = json.get("password");
-        User u = userServices.findUserByUsername(username);
-        if(u==null||!u.getPassword().equals(password)){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        try {
+            User u = userServices.findUserByUsername(username);
+            if(!u.getPassword().equals(password)){
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
+            else{
+                Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
+                resp.addCookie(cookie);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
         }
-        else{
-            Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
-            resp.addCookie(cookie);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        catch (UserNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
 
@@ -44,20 +51,19 @@ public class FrontResource {
     public ResponseEntity<?> createAccount(@RequestBody Map<String,String>json){
         String username = json.get("username");
         String password = json.get("password");
-        User u = userServices.findUserByUsername(username);
-        //new users get 5 points for free
-        if(u==null){
+        try {
+            User u = userServices.findUserByUsername(username);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        catch(UserNotFoundException e){
             User new_u = new User();
             new_u.setUsername(username);
             new_u.setPassword(password);
+            //new users get 5 points for free
             new_u.setBalance(5f);
             userServices.addUser(new_u);
-            //ask this one, whether return no content or return the user back
+            //ask this one, whether return no content or return the user object back
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        //username already exist
-        else{
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
 }
