@@ -30,9 +30,4 @@ public class TransactionResource {
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction transaction) {
-        Transaction newTransaction = transactionServices.addTransaction(transaction);
-        return new ResponseEntity<>(newTransaction, HttpStatus.CREATED);
-    }
 }
