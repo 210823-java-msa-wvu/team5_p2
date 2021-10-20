@@ -80,7 +80,7 @@ public class DealResource {
             dealServices.deleteDeal(id);
 
             //Add a new transaction with "cancel" status
-            Transaction newTransaction = new Transaction(deal.getType(), user, deal.getSeller(), LocalDate.now(), deal.getPrice(), deal.getTradeFor(), deal.getPokeId(), deal.getDescription(), 0);
+            Transaction newTransaction = new Transaction(deal.getType(), null, deal.getSeller(), LocalDate.now(), deal.getPrice(), deal.getTradeFor(), deal.getPokeId(), deal.getDescription(), 0);
             transactionServices.addTransaction(newTransaction);
 
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
