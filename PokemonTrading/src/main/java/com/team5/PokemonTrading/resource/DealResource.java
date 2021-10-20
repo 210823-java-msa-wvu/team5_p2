@@ -4,16 +4,17 @@ package com.team5.PokemonTrading.resource;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team5.PokemonTrading.models.Deal;
+import com.team5.PokemonTrading.models.Transaction;
 import com.team5.PokemonTrading.models.User;
 import com.team5.PokemonTrading.services.DealServices;
 import com.team5.PokemonTrading.services.PokemonServices;
+import com.team5.PokemonTrading.services.TransactionServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,13 +22,16 @@ import java.util.Map;
 
 public class DealResource {
 
-    public final DealServices dealServices;
-    public final PokemonServices pokemonServices;
+    private final DealServices dealServices;
+    private final PokemonServices pokemonServices;
+    private final TransactionServices transactionServices;
+
 
     @Autowired
-    public DealResource (DealServices dealServices, PokemonServices pokemonServices){
+    public DealResource(DealServices dealServices, PokemonServices pokemonServices, TransactionServices transactionServices){
         this.dealServices = dealServices;
         this.pokemonServices = pokemonServices;
+        this.transactionServices = transactionServices;
     }
 
     //to add new item to the market
@@ -64,6 +68,11 @@ public class DealResource {
         //check to see if the wishlist owner matches cookie holder
         if(deal.getSeller().getId().equals(user.getId())) {
             dealServices.deleteDeal(id);
+
+            //Add a new transaction with "cancel" status
+            Transaction newTransaction = new Transaction(deal.getType(), user, deal.getSeller(), LocalDate.now(), deal.getPrice(), deal.getTradeFor(), deal.getPokeId(), deal.getDescription(), 0);
+            transactionServices.addTransaction(newTransaction);
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         else{
