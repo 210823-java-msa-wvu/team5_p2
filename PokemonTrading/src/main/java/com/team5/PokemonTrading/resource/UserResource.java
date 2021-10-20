@@ -39,12 +39,6 @@ public class UserResource {
         return new ResponseEntity<>(deals, HttpStatus.OK);
     }
 
-    @PostMapping("/sell/add")
-    public ResponseEntity<Deal> addNewSell(@RequestBody Deal deal) {
-        Deal newDeal = dealServices.addDeal(deal);
-        return new ResponseEntity<>(newDeal, HttpStatus.CREATED);
-    }
-
     @PostMapping("/buy/{id}")
     public ResponseEntity<?> processDeal(@PathVariable("id") Integer id, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
@@ -53,19 +47,30 @@ public class UserResource {
             cookieMap.put(cookie.getName(), cookie);
         }
 
-        Cookie getBalance = cookieMap.get("balance");
+        float getBalance = Float.parseFloat(cookieMap.get("balance").getValue());
+        int getUserId = Integer.parseInt(cookieMap.get("id").getValue());
         Deal currentDeal = dealServices.findById(id);
-        User currentUser = userServices.findUserById(id);
-        if (currentDeal.getPrice() < Float.parseFloat(getBalance.getValue())) {
+        User currentUser = userServices.findUserById(getUserId);
+        User seller = userServices.findUserById(currentDeal.getSeller().getId());
+        if (currentDeal.getPrice() < getBalance) {
             Transaction newTransaction = new Transaction(currentDeal.getType(), currentUser, currentDeal.getSeller(), LocalDate.now(), currentDeal.getPrice(), currentDeal.getTradeFor(), currentDeal.getPokeId(), currentDeal.getDescription(), 1);
             transactionServices.addTransaction(newTransaction);
             dealServices.deleteDeal(id);
-            // Still waiting for Sergio create new updateBalance() method in order to use it to update the balance for seller and buyer
+            // Update the balance for seller and buyer
+            ObjectMapper om = new ObjectMapper();
+            float newBuyerBalance = currentUser.getBalance() - currentDeal.getPrice();
+            float newSellerBalance = seller.getBalance() + currentDeal.getPrice();
+
+            currentUser.setBalance(newBuyerBalance);
+            userServices.updateUser(currentUser);
+
+            seller.setBalance(newSellerBalance);
+            userServices.updateUser(seller);
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         else
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-
     }
     
     //front end will send in a put request with request body of a json of form {"amount":"-399.99"}
