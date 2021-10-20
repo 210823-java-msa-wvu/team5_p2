@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 public class Pokemon implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Integer id;
     private String name;
