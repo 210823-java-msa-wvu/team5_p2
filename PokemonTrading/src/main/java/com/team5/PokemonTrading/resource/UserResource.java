@@ -40,7 +40,7 @@ public class UserResource {
     }
 
     @PostMapping("/buy/{id}")
-    public ResponseEntity<?> processDeal(@PathVariable("id") Integer id, HttpServletRequest request) {
+    public ResponseEntity<?> processDeal(@PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse resp) throws JsonProcessingException {
         Cookie[] cookies = request.getCookies();
         Map<String, Cookie> cookieMap = new HashMap<>();
         for (Cookie cookie : cookies) {
@@ -66,6 +66,10 @@ public class UserResource {
 
             seller.setBalance(newSellerBalance);
             userServices.updateUser(seller);
+
+            //Update current user cookie balance
+            Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
+            resp.addCookie(cookie);
 
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
