@@ -33,22 +33,27 @@ public class UserResource {
         this.transactionServices = transactionServices;
     }
 
-    @GetMapping("/sell/{id}")
+    //can use cookie
+    @GetMapping("/mysell/{id}")
     public ResponseEntity<List<Deal>> getMyCurrentSells (@PathVariable("id") Integer id) {
         List<Deal> deals = dealServices.findDealsBySeller(id);
         return new ResponseEntity<>(deals, HttpStatus.OK);
     }
 
     @PostMapping("/buy/{id}")
-    public ResponseEntity<?> processDeal(@PathVariable("id") Integer id, HttpServletRequest request) {
+    public ResponseEntity<?> processDeal(@CookieValue("userinfo") String userinfo,
+                                         @PathVariable("id") Integer id,
+                                         HttpServletResponse resp) throws JsonProcessingException {
+        ObjectMapper om = new ObjectMapper();
+        User u = om.readValue(userinfo,User.class);
+        /*
         Cookie[] cookies = request.getCookies();
         Map<String, Cookie> cookieMap = new HashMap<>();
         for (Cookie cookie : cookies) {
             cookieMap.put(cookie.getName(), cookie);
-        }
-
-        float getBalance = Float.parseFloat(cookieMap.get("balance").getValue());
-        int getUserId = Integer.parseInt(cookieMap.get("id").getValue());
+        }*/
+        float getBalance = u.getBalance();
+        int getUserId = u.getId();
         Deal currentDeal = dealServices.findById(id);
         User currentUser = userServices.findUserById(getUserId);
         User seller = userServices.findUserById(currentDeal.getSeller().getId());
@@ -57,12 +62,14 @@ public class UserResource {
             transactionServices.addTransaction(newTransaction);
             dealServices.deleteDeal(id);
             // Update the balance for seller and buyer
-            ObjectMapper om = new ObjectMapper();
             float newBuyerBalance = currentUser.getBalance() - currentDeal.getPrice();
             float newSellerBalance = seller.getBalance() + currentDeal.getPrice();
 
+            //update balance for current user, then send the updated cookie back to the browser
             currentUser.setBalance(newBuyerBalance);
             userServices.updateUser(currentUser);
+            Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
+            resp.addCookie(cookie);
 
             seller.setBalance(newSellerBalance);
             userServices.updateUser(seller);

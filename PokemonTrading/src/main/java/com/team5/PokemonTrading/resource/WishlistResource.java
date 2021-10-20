@@ -20,6 +20,7 @@ public class WishlistResource {
         this.wishlistServices = wishlistServices;
     }
 
+    //use cookie and allow user to only send pokeid
     @PostMapping("/add")
     public ResponseEntity<Wishlist> addWishlist(@RequestBody Wishlist wishlist) {
         Wishlist newWishlist = wishlistServices.addWishlist(wishlist);
@@ -30,7 +31,7 @@ public class WishlistResource {
     public ResponseEntity<List<Wishlist>> viewMyWishlist(@CookieValue("userinfo") String userinfo) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         User user = om.readValue(userinfo, User.class);
-        List<Wishlist> myItems = wishlistServices.viewMyWishlist(user);
+        List<Wishlist> myItems = wishlistServices.viewMyWishlist(user.getId());
         return new ResponseEntity<>(myItems, HttpStatus.OK);
     }
 

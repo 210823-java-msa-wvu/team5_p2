@@ -30,6 +30,12 @@ public class DealResource {
         this.pokemonServices = pokemonServices;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Deal>> getAllDeal(){
+        List<Deal> lod = dealServices.findAllDeals();
+        return new ResponseEntity<>(lod, HttpStatus.OK);
+    }
+
     //to add new item to the market
     @PostMapping(value = "/sell",consumes = "application/json")
     public ResponseEntity<Deal> addDeal(@RequestBody Map<String,String> json,
@@ -37,6 +43,7 @@ public class DealResource {
         ObjectMapper om = new ObjectMapper();
         User u = om.readValue(userinfo,User.class);
         Deal d = new Deal();
+        System.out.println(u);
         d.setDescription(json.get("description"));
         d.setSeller(u);
         d.setType(Integer.parseInt(json.get("type")));
@@ -50,6 +57,7 @@ public class DealResource {
         else{
             d.setPrice(Float.parseFloat(json.get("price")));
         }
+        System.out.println(d);
         Deal newDeal = dealServices.addDeal(d);
         return new ResponseEntity<>(newDeal, HttpStatus.CREATED);
     }
@@ -62,6 +70,7 @@ public class DealResource {
         User user = om.readValue(userinfo,User.class);
         Deal deal = dealServices.findById(id);
         //check to see if the wishlist owner matches cookie holder
+        //URGENT: once deal is deleted, a transaction of failure status should be added
         if(deal.getSeller().getId().equals(user.getId())) {
             dealServices.deleteDeal(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

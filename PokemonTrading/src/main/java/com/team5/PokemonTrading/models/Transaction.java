@@ -30,11 +30,11 @@ public class Transaction implements Serializable {
     private Float price;
 
     @ManyToOne
-    @JoinColumn(name = "trade_for",insertable = false)
+    @JoinColumn(name = "trade_for")
     private Pokemon tradeFor;
 
     @ManyToOne
-    @JoinColumn(name = "pokeid",insertable = false)
+    @JoinColumn(name = "pokeid")
     private Pokemon pokeId;
 
     @Column(name = "description")

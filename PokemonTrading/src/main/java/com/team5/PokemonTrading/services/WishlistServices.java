@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -24,12 +25,12 @@ public class WishlistServices {
 
     public void deleteWishlist(Integer id){ wishlistRepo.deleteById(id);}
 
-    public List<Wishlist> viewMyWishlist(User user){
+    public List<Wishlist> viewMyWishlist(Integer id){
         List<Wishlist> wishlists = wishlistRepo.findAll();
         List<Wishlist> myWishlists = new ArrayList<>();
 
         for(Wishlist w : wishlists) {
-            if(w.getUserid().getId() == user.getId())
+            if(w.getUserid().getId()==id)
                 myWishlists.add(w);
         }
         return myWishlists;

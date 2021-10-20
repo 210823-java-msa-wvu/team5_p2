@@ -7,12 +7,12 @@ import javax.persistence.*;
 @Table(name="wishlist")
 public class Wishlist {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid",insertable = false)
+    @ManyToOne
+    @JoinColumn(name = "userid")
     private User userid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pokeid",insertable = false)
+    @ManyToOne
+    @JoinColumn(name = "pokeid")
     private Pokemon pokeid;
 
     @Id
