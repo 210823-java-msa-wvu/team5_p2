@@ -46,12 +46,7 @@ public class UserResource {
                                          HttpServletResponse resp) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         User u = om.readValue(userinfo,User.class);
-        /*
-        Cookie[] cookies = request.getCookies();
-        Map<String, Cookie> cookieMap = new HashMap<>();
-        for (Cookie cookie : cookies) {
-            cookieMap.put(cookie.getName(), cookie);
-        }*/
+
         float getBalance = u.getBalance();
         int getUserId = u.getId();
         Deal currentDeal = dealServices.findById(id);
