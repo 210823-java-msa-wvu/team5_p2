@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team5.PokemonTrading.exceptions.UserNotFoundException;
 import com.team5.PokemonTrading.models.User;
+import com.team5.PokemonTrading.services.DealServices;
 import com.team5.PokemonTrading.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,13 @@ import java.util.Map;
 @RequestMapping("/front")
 public class FrontResource {
     private final UserServices userServices;
+    private final DealServices dealServices;
 
     @Autowired
-    public FrontResource(UserServices us){userServices=us;}
+    public FrontResource(UserServices us,DealServices ds){
+        userServices=us;
+        dealServices=ds;
+    }
 
     //json web token
     @PostMapping(path = "/login",consumes = "application/json")
@@ -37,6 +42,7 @@ public class FrontResource {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
             else{
+                dealServices.updateDeals();
                 Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
                 resp.addCookie(cookie);
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
