@@ -32,6 +32,45 @@ export class PokemonComponent implements OnInit {
     );
   }
 
+  public onAddPokemon(addForm: NgForm): void {
+    document.getElementById('add-pokemon-form').click();
+    this.pokemonService.addPokemon(addForm.value).subscribe(
+      (response: Pokemon) => {
+        console.log(response);
+        this.getPokemons();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );
+  }
+
+  public onUpdatePokemon(pokemon: Pokemon): void {
+    this.pokemonService.updatePokemon(pokemon).subscribe(
+      (response: Pokemon) => {
+        console.log(response);
+        this.getPokemons();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public onDeletePokemon(pokemonId: number): void {
+    this.pokemonService.deletePokemon(pokemonId).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getPokemons();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   public searchPokemons(key: string): void {
     console.log(key);
     const results: Pokemon[] = [];
