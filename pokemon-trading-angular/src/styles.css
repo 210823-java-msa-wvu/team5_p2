@@ -57,10 +57,8 @@ color: white;
 a {
 color: white;
 }
-<<<<<<< HEAD
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-=======
 
 
 .ng-valid[required], .ng-valid.required  {
@@ -70,4 +68,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
 }
->>>>>>> cb7444cf9c61039be47e742e52880e9ad653b227

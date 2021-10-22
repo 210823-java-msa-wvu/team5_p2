@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {MatNativeDateModule} from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { PokemonService } from './pokemon/pokemon.service';
@@ -29,12 +28,9 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-
     NgbModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
-
-    Ng2SearchPipeModule,
     AuthModule,
     SharedModule
 
