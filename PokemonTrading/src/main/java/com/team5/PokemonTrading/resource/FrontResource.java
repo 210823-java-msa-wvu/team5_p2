@@ -44,6 +44,7 @@ public class FrontResource {
             else{
                 dealServices.updateDeals();
                 Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
+                cookie.setPath("/");
                 resp.addCookie(cookie);
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
