@@ -7,11 +7,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { PokemonService } from './pokemon/pokemon.service';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { MysellComponent } from './mysell/mysell.component';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonComponent
+    PokemonComponent,
+    WishlistComponent,
+    MysellComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
