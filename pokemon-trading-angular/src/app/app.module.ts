@@ -5,13 +5,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import {MatNativeDateModule} from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { PokemonService } from './pokemon/pokemon.service';
+
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { MainMenuService } from './main-menu/main-menu.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -24,9 +29,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+
     NgbModule,
     MatNativeDateModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
+    Ng2SearchPipeModule,
+    AuthModule,
+    SharedModule
+
   ],
   providers: [PokemonService,MainMenuService],
   bootstrap: [AppComponent]
