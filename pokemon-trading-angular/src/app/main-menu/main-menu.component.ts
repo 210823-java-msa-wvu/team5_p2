@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../pokemon/pokemon';
 import { PokemonService } from '../pokemon/pokemon.service';
+
 import { Deal, User } from './main-menu';
 import { MainMenuService } from './main-menu.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +15,9 @@ import { NgForm } from '@angular/forms';
 })
 export class MainMenuComponent implements OnInit {
   closeResult:string;
+
   currentUser:User;
+
   public sellType:number;
   public deals:Deal[];
   public pokemons:Pokemon[];
@@ -27,6 +30,7 @@ export class MainMenuComponent implements OnInit {
     this.getPokemons();
     this.getDeals();
     this.populateUser();
+
   }
 
   public getPokemons(): void {
@@ -54,6 +58,7 @@ export class MainMenuComponent implements OnInit {
   }
 
   public onSubmit(f:NgForm):void{
+
     this.mainMenuService.createSell(f).subscribe(
       (response)=>{
         alert(`succeed, item created on market.`);
@@ -63,6 +68,9 @@ export class MainMenuComponent implements OnInit {
         alert(error.message);
       }
     )
+
+    console.log(JSON.stringify(f.value));
+
   }
 
   public doBuy(deal:Deal):void{
@@ -122,14 +130,17 @@ export class MainMenuComponent implements OnInit {
     }
   }
 
+
   public populateUser():void{
     let cookie = this.getCookie("userinfo");
     this.currentUser = JSON.parse(JSON.parse(cookie));
   }
 
+
   public doNothing():void{
     
   }
+
 
 
   //helper function
@@ -146,4 +157,5 @@ export class MainMenuComponent implements OnInit {
         return decodeURIComponent(cookie.substring(nameLenPlus));
       })[0] || null;
   }
+
 }

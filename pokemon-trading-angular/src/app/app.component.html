@@ -1,3 +1,4 @@
+
 <!-- <app-pokemon></app-pokemon> -->
 <app-column-one></app-column-one>
 
@@ -7,4 +8,13 @@
 
 </div>
 <!-- <app-main-menu></app-main-menu> -->
+
+<app-pokemon></app-pokemon>
+<div *ngFor="let wishlist of wishlists">
+<div>{{wishlist.id}}
+    {{wishlist.pokemon.id}}
+    {{wishlist.userid}}
+</div>
+</div>
+<!-- <app-wishlist></app-wishlist> -->
 
