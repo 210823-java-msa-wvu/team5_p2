@@ -52,7 +52,15 @@ export class MainMenuComponent implements OnInit {
   }
 
   public onSubmit(f:NgForm):void{
-    console.log(JSON.stringify(f.value));
+    this.mainMenuService.createSell(f).subscribe(
+      (response)=>{
+        alert(`succeed, item created on market.`);
+        window.location.reload();
+      },
+      (error:HttpErrorResponse)=>{
+        alert(error.message);
+      }
+    )
   }
 
   public doBuy(deal:Deal):void{
