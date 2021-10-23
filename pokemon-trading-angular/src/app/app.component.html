@@ -1,8 +1,7 @@
 <app-pokemon></app-pokemon>
-
 <div *ngFor="let wishlist of wishlists">
-<div>{{wishlist.id}}
-    {{wishlist.pokeid}}
-    {{wishlist.userid}}
+<div>{{wishlist?.id}}
+    {{wishlist?.pokeid}}
+    {{wishlist?.userid}}
 </div>
 </div>
