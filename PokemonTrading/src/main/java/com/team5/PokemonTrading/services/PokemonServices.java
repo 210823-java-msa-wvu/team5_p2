@@ -24,7 +24,7 @@ public class PokemonServices {
     }
 
     public List<Pokemon> findAllPokemons() {
-        return pokemonRepo.findAll();
+        return pokemonRepo.findAllByOrderByName();
     }
 
     public Pokemon updatePokemon(Pokemon pokemon) {
@@ -34,6 +34,11 @@ public class PokemonServices {
     public Pokemon findPokemonById(Integer id) {
         return pokemonRepo.findPokemonById(id)
                 .orElseThrow(() -> new PokemonNotFoundException("Pokemon by id " + id + " was not found"));
+    }
+
+    public Pokemon findPokemonByName(String name) {
+        return pokemonRepo.findPokemonByName(name)
+                .orElseThrow(() -> new PokemonNotFoundException("Pokemon name " + name + " was not found"));
     }
 
     public void deletePokemon(Integer id){

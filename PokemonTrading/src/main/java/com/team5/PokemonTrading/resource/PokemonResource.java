@@ -30,6 +30,12 @@ public class PokemonResource {
         return new ResponseEntity<>(pokemon, HttpStatus.OK);
     }
 
+    @GetMapping("/name/{name}")
+    public ResponseEntity<Pokemon> getPokemonByName (@PathVariable("name") String name) {
+        Pokemon pokemon = pokemonServices.findPokemonByName(name);
+        return new ResponseEntity<>(pokemon, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Pokemon> addPokemon(@RequestBody Pokemon pokemon) {
         Pokemon newPokemon = pokemonServices.addPokemon(pokemon);
