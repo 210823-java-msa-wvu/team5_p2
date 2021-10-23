@@ -47,10 +47,11 @@ public class UserResource {
         ObjectMapper om = new ObjectMapper();
         User u = om.readValue(userinfo,User.class);
 
-        float getBalance = u.getBalance();
+
         int getUserId = u.getId();
         Deal currentDeal = dealServices.findById(id);
         User currentUser = userServices.findUserById(getUserId);
+        float getBalance = currentUser.getBalance();
         System.out.println(u);
         System.out.println(currentUser);
         User seller = userServices.findUserById(currentDeal.getSeller().getId());
