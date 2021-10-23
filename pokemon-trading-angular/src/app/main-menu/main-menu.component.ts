@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../pokemon/pokemon';
 import { PokemonService } from '../pokemon/pokemon.service';
-import { Deal } from './main-menu';
+import { Deal, User } from './main-menu';
 import { MainMenuService } from './main-menu.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
@@ -14,6 +14,7 @@ import { NgForm } from '@angular/forms';
 })
 export class MainMenuComponent implements OnInit {
   closeResult:string;
+  currentUser:User;
   public sellType:number;
   public deals:Deal[];
   public pokemons:Pokemon[];
@@ -25,6 +26,7 @@ export class MainMenuComponent implements OnInit {
   ngOnInit(): void {
     this.getPokemons();
     this.getDeals();
+    this.populateUser();
   }
 
   public getPokemons(): void {
@@ -120,8 +122,28 @@ export class MainMenuComponent implements OnInit {
     }
   }
 
+  public populateUser():void{
+    let cookie = this.getCookie("userinfo");
+    this.currentUser = JSON.parse(JSON.parse(cookie));
+  }
+
   public doNothing():void{
     
   }
 
+
+  //helper function
+  // the cookie or `null`, if the key is not found.
+  private getCookie(name: string): string|null {
+    const nameLenPlus = (name.length + 1);
+    return document.cookie
+      .split(';')
+      .map(c => c.trim())
+      .filter(cookie => {
+        return cookie.substring(0, nameLenPlus) === `${name}=`;
+      })
+      .map(cookie => {
+        return decodeURIComponent(cookie.substring(nameLenPlus));
+      })[0] || null;
+  }
 }
