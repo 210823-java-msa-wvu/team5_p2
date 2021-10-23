@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Deal } from './main-menu';
@@ -14,11 +15,30 @@ export class MainMenuService {
   constructor(private http: HttpClient) { }
 
   public getDeals(): Observable<Deal[]>{
-    return this.http.get<Deal[]>(`${this.url}/deal`);
+    return this.http.get<Deal[]>(`${this.url}/deal`,{withCredentials:true});
   }
 
   public buyItem(deal:Deal): Observable<void>{
     return this.http.post<void>(`${this.url}/user/buy/${deal.id}`,null,{withCredentials:true});
+  }
+
+  public createSell(form:NgForm): Observable<void>{
+    const headers = {'content-type':"application/json"};
+    let body = form.value.type<3? `{
+                  "description":"${form.value.description}",
+                  "type":${form.value.type},
+                  "expire_date":"${form.value.expire_date}",
+                  "pokeid":${form.value.item},
+                  "price":${form.value.price}}`
+                  :
+                  `{
+                    "description":"${form.value.description}",
+                    "type":${form.value.type},
+                    "expire_date":"${form.value.expire_date}",
+                    "pokeid":${form.value.item},
+                    "trade_for":${form.value.trade_for}}`
+    console.log(body);
+    return this.http.post<void>(`${this.url}/deal/sell`,body,{'headers':headers,withCredentials:true});
   }
 
   public addWishList(deal:Deal): Observable<void>{
