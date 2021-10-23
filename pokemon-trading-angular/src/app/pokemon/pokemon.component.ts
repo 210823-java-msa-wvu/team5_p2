@@ -86,6 +86,8 @@ export class PokemonComponent implements OnInit {
     }
   }
 
+  searchText;
+
   public onOpenModal(pokemon: Pokemon, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');

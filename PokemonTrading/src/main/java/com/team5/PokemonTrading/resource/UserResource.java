@@ -47,10 +47,13 @@ public class UserResource {
         ObjectMapper om = new ObjectMapper();
         User u = om.readValue(userinfo,User.class);
 
-        float getBalance = u.getBalance();
+
         int getUserId = u.getId();
         Deal currentDeal = dealServices.findById(id);
         User currentUser = userServices.findUserById(getUserId);
+        float getBalance = currentUser.getBalance();
+        System.out.println(u);
+        System.out.println(currentUser);
         User seller = userServices.findUserById(currentDeal.getSeller().getId());
         if (currentDeal.getPrice() < getBalance) {
             Transaction newTransaction = new Transaction(currentDeal.getType(), currentUser, currentDeal.getSeller(), LocalDate.now(), currentDeal.getPrice(), currentDeal.getTradeFor(), currentDeal.getPokeId(), currentDeal.getDescription(), 1);
@@ -64,6 +67,7 @@ public class UserResource {
             currentUser.setBalance(newBuyerBalance);
             userServices.updateUser(currentUser);
             Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
+            cookie.setPath("/");
             resp.addCookie(cookie);
 
             seller.setBalance(newSellerBalance);
@@ -94,6 +98,7 @@ public class UserResource {
             userServices.updateUser(u);
             //save the updated user cookie back to the response body
             Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
+            cookie.setPath("/");
             resp.addCookie(cookie);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
