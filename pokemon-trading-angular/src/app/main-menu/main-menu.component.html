@@ -28,6 +28,24 @@
     </div>
 </nav>-->
 
+<!--side toggle pannel-->
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+      </mat-panel-title>
+      <mat-panel-description>
+        User details
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="panel-content">
+    <p>User:{{currentUser.username}}</p>
+    <p>Balance:{{currentUser.balance}}</p>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+<br>
 <!--main window-->
 <div class="container" id="main-container">
     <div class="row">
@@ -56,6 +74,7 @@
         </div>
     </div>
 </div>
+
 
 <!--
 <ng-template #content let-modal>
