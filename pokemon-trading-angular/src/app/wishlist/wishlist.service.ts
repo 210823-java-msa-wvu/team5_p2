@@ -11,7 +11,9 @@ export class WishlistService {
   constructor(private http: HttpClient){}
 
   public getWishlist(): Observable<Wishlist[]> {
+    // console.log("is this thing on?");
     return this.http.get<Wishlist[]>(`${this.apiServerUrl}/wishlist/view`,{withCredentials:true});
+
   }
 
   public deleteWishlist(wishlistId: number): Observable<void> {

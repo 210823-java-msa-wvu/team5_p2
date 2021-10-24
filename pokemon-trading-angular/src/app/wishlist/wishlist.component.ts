@@ -18,6 +18,7 @@ export class WishlistComponent implements OnInit {
               private wishlistSevice:WishlistService) { }
 
   ngOnInit(): void {
+this.getWishlists();
 
   }
 // get wishlists
@@ -25,7 +26,19 @@ public getWishlists(): void {
   this.wishlistSevice.getWishlist().subscribe(
     (response: Wishlist[]) => {
       this.wishlists = response;
-      console.log(this.wishlists);
+      console.log(this.wishlists[0].pokeid);
+    },
+    (error: HttpErrorResponse) => {
+      alert(error.message);
+    }
+  );
+}
+
+public deleteWishlists(): void {
+  this.wishlistSevice.getWishlist().subscribe(
+    (response: Wishlist[]) => {
+      this.wishlists = response;
+      console.log(this.wishlists[0].pokeid);
     },
     (error: HttpErrorResponse) => {
       alert(error.message);
