@@ -10,11 +10,11 @@ export class TransactionService {
 
   constructor(private http: HttpClient){}
 
-  public getTransactionBuy(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.apiServerUrl}/transaction`);
+  public getTransaction(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.apiServerUrl}/mysell/{id}`);
   }
 
-  public getTransactionSell(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.apiServerUrl}/transaction`);
-  }
+//   public getTransactionSell(): Observable<Transaction[]> {
+//     return this.http.get<Transaction[]>(`${this.apiServerUrl}/transaction`);
+//   }
 }
