@@ -41,4 +41,15 @@ public class TransactionServices {
         return result;
     }
 
+    public List<Transaction> findAllByBuyerOrSeller(Integer id){
+        List<Transaction> transactions = transactionRepo.findAll();
+        List<Transaction> result = new ArrayList<>();
+
+        for(Transaction t : transactions) {
+            if(t.getSeller().getId() == id||t.getBuyer().getId()==id)
+                result.add(t);
+        }
+        return result;
+    }
+
 }
