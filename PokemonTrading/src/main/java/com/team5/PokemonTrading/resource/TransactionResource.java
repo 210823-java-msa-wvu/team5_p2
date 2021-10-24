@@ -32,4 +32,9 @@ public class TransactionResource {
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
+    @GetMapping("/findtransactions/{id}")
+    public ResponseEntity<List<Transaction>> getUserHistory (@PathVariable("id") Integer id) {
+        List<Transaction> transactions = transactionServices.findAllByBuyerOrSeller(id);
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
+    }
 }
