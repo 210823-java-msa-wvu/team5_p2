@@ -18,6 +18,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { SubmitDealComponent } from './submit-deal/submit-deal.component';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -18,38 +18,45 @@
          id="navbarNav">
         <ul class="navbar-nav">
 
-            <li class="nav-item active">
+            <li class="nav-item active" *ngIf="!(LoginStatus$ | async) as LoginStatus">
                 <a class="nav-link"
+                *ngIf="LoginStatus"
                 [routerLink]="['register']"
                 routerLinkActive="active">Register </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!(LoginStatus$ | async) as LoginStatus">
                 <a class="nav-link"
+                *ngIf="LoginStatus"
                 [routerLink]="['login']"
                 routerLinkActive="active">Login</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" 
-                >Logout</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" 
+            <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
+                <a class="nav-link"
+                *ngIf="LoginStatus" 
                 >Sell</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" 
+            <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
+                <a class="nav-link"
+                *ngIf="LoginStatus" 
                 >Wishlist</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" 
+            <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
+                <a class="nav-link"
+                *ngIf="LoginStatus" 
                 >Load balance</a>
+            </li>
+
+            <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
+                <a class="nav-link"
+                *ngIf="LoginStatus" 
+                >Logout</a>
             </li>
 
         </ul>
     </div>
 </nav>
+
