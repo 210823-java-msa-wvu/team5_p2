@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
@@ -33,6 +33,7 @@ import { SubmitDealComponent } from './submit-deal/submit-deal.component';
     FormsModule,
     NgbModule,
     MatNativeDateModule,
+    MatExpansionModule,
     BrowserAnimationsModule,
     AuthModule,
     SharedModule

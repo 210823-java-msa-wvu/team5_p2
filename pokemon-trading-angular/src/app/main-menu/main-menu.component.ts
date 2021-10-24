@@ -15,6 +15,7 @@ import { NgForm } from '@angular/forms';
 export class MainMenuComponent implements OnInit {
   closeResult:string;
   currentUser:User;
+  panelOpenState = false;
   public sellType:number;
   public deals:Deal[];
   public pokemons:Pokemon[];
