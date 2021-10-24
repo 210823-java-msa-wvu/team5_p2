@@ -20,4 +20,19 @@ export class HeaderComponent implements OnInit {
     this.LoginStatus$ = this.authService.isLogIn;
   }
 
+  public logout():void{
+    this.deleteAllCookies();
+    window.location.replace("http://localhost:4200");
+  }
+
+  private deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+  }
 }

@@ -34,7 +34,9 @@
 
             <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
                 <a class="nav-link"
-                *ngIf="LoginStatus" 
+                *ngIf="LoginStatus"
+                [routerLink]="['sell']"
+                routerLinkActive="active" 
                 >Sell</a>
             </li>
 
@@ -53,7 +55,7 @@
             <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
                 <a class="nav-link"
                 *ngIf="LoginStatus" 
-                >Logout</a>
+                (click)="logout()">Logout</a>
             </li>
 
         </ul>
