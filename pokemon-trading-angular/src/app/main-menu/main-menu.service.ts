@@ -22,6 +22,7 @@ export class MainMenuService {
     return this.http.post<void>(`${this.url}/user/buy/${deal.id}`,null,{withCredentials:true});
   }
 
+  /*
   public createSell(form:NgForm): Observable<void>{
     const headers = {'content-type':"application/json"};
     let body = form.value.type<3? `{
@@ -39,7 +40,7 @@ export class MainMenuService {
                     "trade_for":${form.value.trade_for}}`
     console.log(body);
     return this.http.post<void>(`${this.url}/deal/sell`,body,{'headers':headers,withCredentials:true});
-  }
+  }*/
 
   public addWishList(deal:Deal): Observable<void>{
     const headers = {'content-type':'application/json'};
