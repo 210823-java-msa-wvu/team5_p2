@@ -1,3 +1,5 @@
+import { Pokemon } from "../pokemon/pokemon";
+
 export interface Deal{
     id: number;
     type: number;
@@ -6,5 +8,5 @@ export interface Deal{
     expire_date: string;
     trader_for: number;
     description: string;
-    pokeid: number;
+    pokeid: Pokemon;
 }

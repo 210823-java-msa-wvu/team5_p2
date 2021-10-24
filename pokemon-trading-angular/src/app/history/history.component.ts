@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Pokemon } from '../pokemon/pokemon';
+import { PokemonService } from '../pokemon/pokemon.service';
+import { Transaction } from './transaction';
+import { TransactionService } from './transactions.service';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-history',
@@ -7,9 +12,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor() { }
+  public pokemons:Pokemon[];
+  public transactions:Transaction[];
+  constructor(private pokemonService:PokemonService,
+              private transactionService:TransactionService) { }
 
   ngOnInit(): void {
-  }
+// this.getTransactions();
 
+  }
+// get deals
+// public getTransactions(): void {
+//   this.transactionService.getTransaction().subscribe(
+//     (response: Transaction[]) => {
+//       this.transactions = response;
+//       console.log(this.transactions[0].pokeid);
+//     },
+//     (error: HttpErrorResponse) => {
+//       alert(error.message);
+//     }
+//   );
 }
+

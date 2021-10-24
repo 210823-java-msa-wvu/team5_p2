@@ -34,14 +34,16 @@ public getWishlists(): void {
   );
 }
 
-public deleteWishlists(): void {
-  this.wishlistSevice.getWishlist().subscribe(
-    (response: Wishlist[]) => {
-      this.wishlists = response;
-      console.log(this.wishlists[0].pokeid);
+public deleteWishlist(Id:number) {
+  this.wishlistSevice.deleteWishlist(Id).subscribe(
+    (response) => {
+      // this.wishlists = response;
+      // console.log(this.wishlists[0].pokeid);
+      location.reload();
     },
     (error: HttpErrorResponse) => {
       alert(error.message);
+
     }
   );
 }

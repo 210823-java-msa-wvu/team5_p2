@@ -17,6 +17,6 @@ export class WishlistService {
   }
 
   public deleteWishlist(wishlistId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/wishlist/delete/${wishlistId}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/wishlist/delete/${wishlistId}`,{withCredentials:true});
   }
 }
