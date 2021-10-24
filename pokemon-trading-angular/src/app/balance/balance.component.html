@@ -1,0 +1,13 @@
+<h3>Select the amount you wish to load/withdraw</h3>
+<form #f="ngForm" novalidate>
+    <div class="form-group">
+        <label>Amount:</label>
+        <div class="input-group">
+          <input [(ngModel)]="amount" id="amount" name="amount" type="number" step="0.01" class="form-control" ngModel>
+        </div>
+    </div>
+    <div class="text-center">
+        <button style="margin: 20px" data-dismiss="modal" (click)="load()" class="btn btn-info">Load</button>
+        <button data-dismiss="modal" (click)="withdraw()" class="btn btn-info">Withdraw</button>
+    </div>
+  </form>

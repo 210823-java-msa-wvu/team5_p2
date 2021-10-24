@@ -56,17 +56,17 @@
                   <a href=""><img src="{{deal.pokeId.imgUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
                </div>
                 <div class="col-6 card-title align-self-center mb-0">
-                    <h5>{{deal.id}}</h5>
-                    <h5>{{deal.pokeId.name}}</h5>
-                    <h5>{{deal.price}}</h5>
-                    <h5>{{deal.seller.username}}</h5>
-                    <h5>{{deal.expireDate|date}}</h5>
+                    <h6>{{deal.id}}</h6>
+                    <h6>{{deal.pokeId.name}}</h6>
+                    <h6>price: {{deal.price}}</h6>
+                    <h6>seller: {{deal.seller.username}}</h6>
+                    <h6>expire_date: {{deal.expireDate|date}}</h6>
                 </div>
             </div>
             <div class="card-body">
                <div class="float-right btn-group btn-group-sm">
-                  <a (click)="doBuy(deal)" class="btn btn-primary tooltips" data-placement="top">buy!</a>
-                  <a (click)="addToWishList(deal)" class="btn btn-primary tooltips" data-placement="top">add to wish list!</a>
+                  <a (click)="doBuy(deal)" style="margin-right: 5px;" class="btn btn-primary tooltips" data-placement="top">Buy!</a>
+                  <a (click)="addToWishList(deal)" class="btn btn-primary tooltips" data-placement="top">Add wishlist!</a>
                </div>
             </div>
   

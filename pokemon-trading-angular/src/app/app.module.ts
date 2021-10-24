@@ -16,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
 import { SubmitDealComponent } from './submit-deal/submit-deal.component';
+import { BalanceComponent } from './balance/balance.component';
 
 
 
@@ -26,7 +27,8 @@ import { SubmitDealComponent } from './submit-deal/submit-deal.component';
     PokemonComponent,
     HomeComponent,
     MainMenuComponent,
-    SubmitDealComponent
+    SubmitDealComponent,
+    BalanceComponent
   ],
   imports: [
     BrowserModule,
