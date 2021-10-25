@@ -29,7 +29,7 @@
 </nav>-->
 
 <!--side toggle pannel-->
-<mat-accordion>
+<!-- <mat-accordion>
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
@@ -40,18 +40,24 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="panel-content">
-    <p>User:{{currentUser.username}}</p>
-    <p>Balance:{{currentUser.balance}}</p>
+    <p><strong>User: </strong>{{currentUser.username}}</p>
+    <p><strong>Balance: </strong>${{currentUser.balance}}</p>
     </div>
   </mat-expansion-panel>
   <div class="search-deal">
     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Deal">
   </div>
-</mat-accordion>
+</mat-accordion> -->
+
+<p>Welcome {{currentUser.username}}</p>
+<p>Your Balance is ${{currentUser.balance}}</p>
+<div class="search-deal">
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Deal">
+</div>
 
 <br>
 <!--main window-->
-<div class="container" id="main-container">
+<!-- <div class="container" id="main-container">
     <div class="row">
 
         <div *ngFor="let deal of deals | filter:searchText" class="col-md-6 col-xl-3">
@@ -78,8 +84,33 @@
             </div>
         </div>
     </div>
-</div>
-
+</div> -->
+  <div class="container" id="main-container">
+      <div class="row">
+              <div *ngFor="let deal of deals | filter:searchText" class="col-md-4 col-sm-6 col-xs-12">
+                <div class="card m-b-30">
+                  <div class="bs-pricing-item xs-last-border">
+                      <div class="bs-icon">
+                          <img src="{{deal.pokeId.imgUrl}}" alt="">
+                      </div>
+                      <div class="head ">
+                        <div class="price-title">
+                            <h2>{{deal.pokeId.name}}</h2>
+                            <div class="separator"></div>
+                        </div>
+                        <div class="price">
+                            <h1><sup>$</sup>{{deal.price}} </h1>
+                            <p><strong>Deal</strong> {{deal.id}}</p>
+                            <p><strong>Seller:</strong> {{deal.seller.username}}</p>
+                            <p><strong>Expire date:</strong> {{deal.expireDate|date}}</p>
+                            <a (click)="doBuy(deal)" class="btn btn-primary text-uppercase" id="cac">Purchase Now</a>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+  </div>
 
 <!--
 <ng-template #content let-modal>
@@ -138,3 +169,4 @@
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
     </div>
 </ng-template>-->
+
