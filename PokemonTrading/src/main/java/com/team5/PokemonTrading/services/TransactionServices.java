@@ -46,9 +46,10 @@ public class TransactionServices {
         List<Transaction> result = new ArrayList<>();
 
         for(Transaction t : transactions) {
-            if(t.getSeller().getId() == id||t.getBuyer().getId()==id)
+            if(t.getSeller().getId() == id||(t.getBuyer()!=null&&t.getBuyer().getId()==id))
                 result.add(t);
         }
         return result;
     }
+
 }

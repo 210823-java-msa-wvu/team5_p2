@@ -7,6 +7,7 @@ import { Deal, User } from './main-menu';
 import { MainMenuService } from './main-menu.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-menu',
@@ -144,7 +145,7 @@ export class MainMenuComponent implements OnInit {
 
   public logout():void{
     this.deleteAllCookies();
-    window.location.replace("http://localhost:4200");
+    window.location.replace(`${environment.frontendBaseUrl}`);
   }
 
   public onSubmit(f:NgForm){
