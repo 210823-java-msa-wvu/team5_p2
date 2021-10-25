@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,6 +16,7 @@ export class MainMenuService {
   constructor(private http: HttpClient) { }
 
   public getDeals(): Observable<Deal[]>{
+
     return this.http.get<Deal[]>(`${this.url}/deal`,{withCredentials:true});
   }
 

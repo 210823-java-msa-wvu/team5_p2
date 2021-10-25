@@ -10,4 +10,5 @@ export interface Deal{
     description: string;
     pokeId: Pokemon;
     //highestBidder:User|null;
+
 }

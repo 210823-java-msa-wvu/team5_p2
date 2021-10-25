@@ -27,6 +27,7 @@ public getWishlists(): void {
     (response: Wishlist[]) => {
       this.wishlists = response;
       console.log(this.wishlists[0].pokeid);
+
     },
     (error: HttpErrorResponse) => {
       alert(error.message);

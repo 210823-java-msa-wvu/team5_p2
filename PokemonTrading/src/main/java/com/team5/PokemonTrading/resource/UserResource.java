@@ -6,17 +6,14 @@ import com.team5.PokemonTrading.models.Deal;
 import com.team5.PokemonTrading.models.Transaction;
 import com.team5.PokemonTrading.models.User;
 import com.team5.PokemonTrading.services.DealServices;
-import com.team5.PokemonTrading.services.TransactionServices;
 import com.team5.PokemonTrading.services.UserServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
