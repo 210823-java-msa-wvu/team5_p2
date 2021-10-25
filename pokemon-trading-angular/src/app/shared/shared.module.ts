@@ -10,7 +10,6 @@ import { AlertModule } from 'ngx-alerts';
 
 
 
-
 @NgModule({
   declarations: [
     ColumnOneComponent,

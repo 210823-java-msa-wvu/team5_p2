@@ -1,6 +1,5 @@
-<!-- <p>wishlist works!</p> -->
-<!--main window-->
-<div class="container" id="main-container">
+
+<!-- <div class="container" id="main-container">
     <div class="row">
         <div *ngFor="let wishlist of wishlists" class="col-md-6 col-xl-3">
             <div class="card m-b-30">
@@ -11,15 +10,11 @@
                 <div class="col-6 card-title align-self-center mb-0">
                     <h5>{{wishlist.id}}</h5>
                     <h5>{{wishlist.pokeid.name}}</h5>
-                    <!-- <h5>{{deal.price}}</h5>
-                    <h5>{{deal.seller.username}}</h5>
-                    <h5>{{deal.expireDate|date}}</h5> -->
+                    
                 </div>
             </div>
             <div class="card-body">
                <div class="float-right btn-group btn-group-sm">
-                  <!-- <a (click)="doBuy(deal)" class="btn btn-primary tooltips" data-placement="top">buy!</a>
-                  <a (click)="addToWishList(deal)" class="btn btn-primary tooltips" data-placement="top">add to wish list!</a> -->
                   <a (click)="deleteWishlist(wishlist.id)" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
                </div>
             </div>
@@ -27,4 +22,24 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="container" id="main-container">
+    <div class="row">
+            <div *ngFor="let wishlist of wishlists" class="col-md-4 col-sm-6 col-xs-12">
+              <div class="card m-b-30">
+                <div class="bs-pricing-item xs-last-border">
+                    <div class="bs-icon">
+                        <img src="{{wishlist.pokeid.imgUrl}}" alt="">
+                    </div>
+                    <div class="head ">
+                      <div class="price">
+                          <h2>{{wishlist.pokeid.name}}</h2>
+                          <a (click)="deleteWishlist(wishlist.id)" class="btn btn-primary text-uppercase" id="cac">Delete</a>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
 </div>

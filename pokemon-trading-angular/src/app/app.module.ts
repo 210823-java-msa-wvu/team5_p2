@@ -18,7 +18,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { SubmitDealComponent } from './submit-deal/submit-deal.component';
 import { BalanceComponent } from './balance/balance.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -30,7 +30,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     MainMenuComponent,
     SubmitDealComponent,
     BalanceComponent,
-    WishlistComponent
+    WishlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +42,8 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     MatExpansionModule,
     BrowserAnimationsModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    Ng2SearchPipeModule
 
   ],
   providers: [PokemonService,MainMenuService],
