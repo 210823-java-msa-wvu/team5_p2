@@ -27,8 +27,8 @@ export class SubmitDealService {
                     "expire_date":"${form.value.expire_date}",
                     "pokeid":${form.value.item},
                     "trade_for":${form.value.trade_for}}`
-    console.log(body);
+    //console.log(body);
     return this.http.post<void>(`${this.url}/deal/sell`,body,{'headers':headers,withCredentials:true});
   }
-  
+
 }

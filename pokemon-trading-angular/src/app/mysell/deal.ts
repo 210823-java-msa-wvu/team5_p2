@@ -9,4 +9,5 @@ export interface Deal{
     trader_for: number;
     description: string;
     pokeId: Pokemon;
+    //highestBidder:User|null;
 }

@@ -58,13 +58,17 @@
                 <div class="col-6 card-title align-self-center mb-0">
                     <h6>{{deal.id}}</h6>
                     <h6>{{deal.pokeId.name}}</h6>
-                    <h6>price: {{deal.price}}</h6>
-                    <h6>seller: {{deal.seller.username}}</h6>
-                    <h6>expire_date: {{deal.expireDate|date}}</h6>
+                    <h6>Type: <br>{{typeTable[deal.type]}}</h6>
+                    <h6>Price: {{deal.price}}</h6>
+                    <h6>Seller: {{deal.seller.username}}</h6>
+                    <h6 *ngIf="deal.highestBidder!=null&&deal.type==2">Current Winner: {{deal.highestBidder.username}}</h6>
+                    <h6 *ngIf="deal.highestBidder==null&&deal.type==2">Current Winner: No Bidder</h6>
+                    <h6>Expire Date: {{deal.expireDate|date}}</h6>
                 </div>
             </div>
             <div class="card-body">
                <div class="float-right btn-group btn-group-sm">
+                  <a *ngIf="deal.type==2" (click)="openModal(content,deal)" style="margin-right: 5px;" class="btn btn-primary tooltips" data-placement="top">Bid!</a>
                   <a (click)="doBuy(deal)" style="margin-right: 5px;" class="btn btn-primary tooltips" data-placement="top">Buy!</a>
                   <a (click)="addToWishList(deal)" class="btn btn-primary tooltips" data-placement="top">Add wishlist!</a>
                </div>
@@ -76,7 +80,7 @@
 </div>
 
 
-<!--
+
 <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Create a new sell!</h4>
@@ -87,49 +91,17 @@
     <div class="modal-body">
       <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
         <div class="form-group">
-          <label>Type of trade:</label>
+          <label>Bid Amount:</label>
           <div class="input-group">
-            <select [(ngModel)]="sellType" id="type" name="type" class="form-control" ngModel>
-                <option value=1>buy now</option>
-                <option value=2>auction</option>
-                <option value=3>trade</option>
-            </select>
-          </div>
-          <label>Valid until:</label>
-          <div class="input-group">
-            <input id="expire_date" name="expire_date" type="date" class="form-control" ngModel>
-          </div>
-          <label>Item:</label>
-          <div class="input-group">
-            <select id="item" name="item" class="form-control" ngModel>
-                <option *ngFor="let pokemon of pokemons" value={{pokemon.id}}>{{pokemon.name}}</option>
-            </select>
-          </div>
-          <label>Description:</label>
-          <div class="input-group">
-            <input id="description" name="description" rows="3" type="text" class="form-control" ngModel>
-          </div>
-          <div *ngIf="sellType<3">
-            <label>Price:</label>
-            <div class="input-group">
-                <input id="price" name="price" type="number" step="0.01" class="form-control" ngModel>
-            </div>
-          </div>
-          <div *ngIf="sellType==3">
-            <label>Trade for:</label>
-            <div class="input-group">
-                <select id="trade_for" name="trade_for" class="form-control" ngModel>
-                    <option *ngFor="let pokemon of pokemons" value={{pokemon.id}}>{{pokemon.name}}</option>
-                </select>
-            </div>
+            <input id="bid_amount" name="bid_amount" type="number" step="0.01" class="form-control" ngModel>
           </div>
         </div>
         <div class="text-center">
-            <button data-dismiss="modal" class="btn btn-info">Submit</button>
+            <button data-dismiss="modal" class="btn btn-info">Bid</button>
         </div>
       </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
     </div>
-</ng-template>-->
+</ng-template>

@@ -78,7 +78,55 @@ public class UserResource {
         else
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
-    
+
+    @PutMapping(value = "/bid/{id}", consumes = "application/json")
+    public ResponseEntity<?> processAuction(@CookieValue("userinfo") String userinfo,
+                                            @PathVariable("id") Integer id,
+                                            @RequestBody Map<String, String> json,
+                                            HttpServletResponse resp) throws JsonProcessingException {
+        ObjectMapper om = new ObjectMapper();
+        float amount = Float.parseFloat(json.get("amount"));
+        User u = om.readValue(userinfo,User.class);
+        int getUserId = u.getId();
+        Deal currentDeal = dealServices.findById(id);
+        User currentUser = userServices.findUserById(getUserId);
+        float getBalance = currentUser.getBalance();
+        //new price is lower or equal to current price OR submitted price is more than user has OR deal is not auction
+        if (currentDeal.getPrice() > amount||amount>currentUser.getBalance()||currentDeal.getType()!=2) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        else {
+            if(currentDeal.getHighestBidder()==null) {
+                //when he is the first bidder, remove his points on hold.
+                currentDeal.setHighestBidder(currentUser);
+                currentDeal.setPrice(amount);
+                currentUser.setBalance(currentUser.getBalance()-amount);
+                dealServices.updateDeal(currentDeal);
+                userServices.updateUser(currentUser);
+                Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
+                cookie.setPath("/");
+                resp.addCookie(cookie);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            else{
+                //when there is a previous bidder, return his points back, and deduction from current bidder.
+                User previous_bidder = currentDeal.getHighestBidder();
+                float previous_price = currentDeal.getPrice();
+                currentDeal.setHighestBidder(currentUser);
+                currentDeal.setPrice(amount);
+                previous_bidder.setBalance(previous_bidder.getBalance()+previous_price);
+                currentUser.setBalance(currentUser.getBalance()-amount);
+                dealServices.updateDeal(currentDeal);
+                userServices.updateUser(currentUser);
+                userServices.updateUser(previous_bidder);
+                Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
+                cookie.setPath("/");
+                resp.addCookie(cookie);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        }
+    }
+
     //front end will send in a put request with request body of a json of form {"amount":"-399.99"}
     @PutMapping(value = "/load",consumes = "application/json")
     public ResponseEntity<?> loadBalance(@CookieValue("userinfo") String userinfo,

@@ -22,6 +22,13 @@ export class MainMenuService {
     return this.http.post<void>(`${this.url}/user/buy/${deal.id}`,null,{withCredentials:true});
   }
 
+  public bidItem(amount:number,dealId:number): Observable<void>{
+    const headers = {'content-type':"application/json"};
+    let body=`{
+                "amount":${amount}
+              }`
+    return this.http.put<void>(`${this.url}/user/bid/${dealId}`,body,{'headers':headers,withCredentials:true});
+  }
   /*
   public createSell(form:NgForm): Observable<void>{
     const headers = {'content-type':"application/json"};
