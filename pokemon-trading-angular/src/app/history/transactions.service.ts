@@ -10,8 +10,8 @@ export class TransactionService {
 
   constructor(private http: HttpClient){}
 
-  public getTransaction(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.apiServerUrl}/mysell/{id}`);
+  public getTransaction(borsId: Transaction): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.apiServerUrl}/transaction/findtransactions/${borsId.buyer.id||borsId.seller.id}`,{withCredentials:true});
   }
 
 //   public getTransactionSell(): Observable<Transaction[]> {

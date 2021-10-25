@@ -21,16 +21,17 @@ export class HistoryComponent implements OnInit {
 // this.getTransactions();
 
   }
-// get deals
-// public getTransactions(): void {
-//   this.transactionService.getTransaction().subscribe(
+// get transactions
+// public getTransactions(borsId:number): void {
+//   this.transactionService.getTransaction(this.transactions[0].seller.id || this.transactions[0].buyer.id).subscribe(
 //     (response: Transaction[]) => {
 //       this.transactions = response;
-//       console.log(this.transactions[0].pokeid);
+//       console.log(this.transactions[0].id);
 //     },
 //     (error: HttpErrorResponse) => {
 //       alert(error.message);
 //     }
 //   );
+// }
 }
 

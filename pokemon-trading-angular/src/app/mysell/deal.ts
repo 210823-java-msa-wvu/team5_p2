@@ -8,5 +8,5 @@ export interface Deal{
     expire_date: string;
     trader_for: number;
     description: string;
-    pokeid: Pokemon;
+    pokeId: Pokemon;
 }
