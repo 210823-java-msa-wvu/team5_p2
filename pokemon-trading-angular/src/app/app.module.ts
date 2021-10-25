@@ -17,6 +17,7 @@ import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
 import { SubmitDealComponent } from './submit-deal/submit-deal.component';
 import { BalanceComponent } from './balance/balance.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 
 
@@ -28,7 +29,8 @@ import { BalanceComponent } from './balance/balance.component';
     HomeComponent,
     MainMenuComponent,
     SubmitDealComponent,
-    BalanceComponent
+    BalanceComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,
