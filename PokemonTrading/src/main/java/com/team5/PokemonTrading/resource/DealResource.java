@@ -35,7 +35,7 @@ public class DealResource {
         this.transactionServices = transactionServices;
     }
 
-    @GetMapping("/see")
+    @GetMapping
     public ResponseEntity<List<Deal>> getAllDeal(){
         List<Deal> lod = dealServices.findAllDeals();
         return new ResponseEntity<>(lod, HttpStatus.OK);
