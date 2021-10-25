@@ -8,6 +8,7 @@ import com.team5.PokemonTrading.models.Transaction;
 import com.team5.PokemonTrading.models.User;
 import com.team5.PokemonTrading.services.DealServices;
 import com.team5.PokemonTrading.services.PokemonServices;
+import com.team5.PokemonTrading.services.TransactionServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

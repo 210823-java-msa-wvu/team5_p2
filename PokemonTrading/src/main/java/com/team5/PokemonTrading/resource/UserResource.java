@@ -6,6 +6,7 @@ import com.team5.PokemonTrading.models.Deal;
 import com.team5.PokemonTrading.models.Transaction;
 import com.team5.PokemonTrading.models.User;
 import com.team5.PokemonTrading.services.DealServices;
+import com.team5.PokemonTrading.services.TransactionServices;
 import com.team5.PokemonTrading.services.UserServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
