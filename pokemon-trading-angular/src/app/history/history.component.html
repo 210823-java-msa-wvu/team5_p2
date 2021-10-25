@@ -1,0 +1,85 @@
+<!--main window-->
+<!-- <div class="container" id="main-container">
+    <div class="row">
+        <div *ngFor="let transaction of transactions" class="col-md-6 col-xl-3">
+            <div class="card m-b-30">
+            <div class="card-body row">
+               <div class="col-6">
+                  <a href=""><img src="{{transaction.pokeId.imgUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
+               </div>
+                <div class="col-6 card-title align-self-center mb-0">
+                    <h5>{{transaction.id}}</h5>
+                    <h5>{{transaction.pokeId.name}}</h5>
+                    <h5>{{transaction.description}}</h5>
+                     <h5>{{deal.price}}</h5>
+                    <h5>{{deal.seller.username}}</h5>
+                    <h5>{{deal.expireDate|date}}</h5> 
+                </div>
+            </div>
+            <div class="card-body">
+               <div class="float-right btn-group btn-group-sm">
+                  <a (click)="doBuy(deal)" class="btn btn-primary tooltips" data-placement="top">buy!</a>
+                  <a (click)="addToWishList(deal)" class="btn btn-primary tooltips" data-placement="top">add to wish list!</a> 
+                  <a class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+               </div>
+            </div>
+  
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<head>
+  <style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  </style>
+  </head>
+  <body>
+  
+  <h2>Transactions</h2>
+
+    <table>
+      <thead>
+          <tr>
+            <th>Id</th>
+            <th>Type</th>
+            <th>Buyer</th>
+            <th>Seller</th>
+            <th>Complete Date</th>
+            <th>Price</th>
+            <th>Trade for</th>
+            <th>Pokemon Id</th>
+            <th>Description</th>
+            <th>Status</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <td>{{transaction.id}}</td>
+            <td>{{transaction.type}}</td>
+            <td *ngIf = "transaction.buyer != null">{{transaction?.buyer.username}}</td>
+            <td *ngIf = "transaction.buyer == null">No Buyer</td>
+            <td>{{transaction?.seller.username}}</td>
+            <td>{{transaction?.completeDate | date:'yyyy-MM-dd'}}</td>
+            <td>{{transaction.price}}</td>
+            <td>{{transaction.trader_for}}</td>
+            <td>{{transaction.pokeId.id}}</td>
+            <td>{{transaction.description}}</td>
+            <td>{{transaction.status}}</td>
+          </tr>
+      </tbody>
+  </table>
