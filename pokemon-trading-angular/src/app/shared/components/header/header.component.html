@@ -52,9 +52,9 @@
             <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
                 <a class="nav-link"
                 *ngIf="LoginStatus"
-                [routerLink]="['history']"
+                [routerLink]="['mysell']"
                 routerLinkActive="active"
-                >History</a>
+                >My Sell</a>
             </li>
             <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
                 <a class="nav-link"
