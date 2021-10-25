@@ -19,6 +19,7 @@ export class BalanceComponent implements OnInit {
     this.balanceService.loadAmount(this.amount).subscribe(
       (response) => {
         alert("successful");
+        this.amount=0;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -30,6 +31,7 @@ export class BalanceComponent implements OnInit {
     this.balanceService.loadAmount(-this.amount).subscribe(
       (response) => {
         alert("successful");
+        this.amount=0;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
