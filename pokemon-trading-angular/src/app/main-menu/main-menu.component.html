@@ -69,7 +69,7 @@
             <div class="card-body">
                <div class="float-right btn-group btn-group-sm">
                   <a *ngIf="deal.type==2" (click)="openModal(content,deal)" style="margin-right: 5px;" class="btn btn-primary tooltips" data-placement="top">Bid!</a>
-                  <a (click)="doBuy(deal)" style="margin-right: 5px;" class="btn btn-primary tooltips" data-placement="top">Buy!</a>
+                  <a *ngIf="deal.type==1" (click)="doBuy(deal)" style="margin-right: 5px;" class="btn btn-primary tooltips" data-placement="top">Buy!</a>
                   <a (click)="addToWishList(deal)" class="btn btn-primary tooltips" data-placement="top">Add wishlist!</a>
                </div>
             </div>

@@ -55,6 +55,7 @@ public class UserResource {
         System.out.println(u);
         System.out.println(currentUser);
         User seller = userServices.findUserById(currentDeal.getSeller().getId());
+        if(currentDeal.getType()!=1) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         if (currentDeal.getPrice() < getBalance) {
             Transaction newTransaction = new Transaction(currentDeal.getType(), currentUser, currentDeal.getSeller(), LocalDate.now(), currentDeal.getPrice(), currentDeal.getTradeFor(), currentDeal.getPokeId(), currentDeal.getDescription(), 1);
             transactionServices.addTransaction(newTransaction);
