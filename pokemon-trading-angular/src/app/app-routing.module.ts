@@ -5,6 +5,8 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SubmitDealComponent } from './submit-deal/submit-deal.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { PokemonComponent } from './pokemon/pokemon.component';
+
 
 
 
@@ -13,7 +15,8 @@ const routes: Routes = [
   { path: 'main', component: MainMenuComponent},
   { path: 'sell', component: SubmitDealComponent },
   { path: 'balance', component: BalanceComponent },
-  { path: 'wishlist', component: WishlistComponent }
+  { path: 'wishlist', component: WishlistComponent },
+  { path: 'pokemon', component:PokemonComponent}
 ];
 
 @NgModule({

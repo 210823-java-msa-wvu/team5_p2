@@ -25,4 +25,28 @@ export class PokemonService {
   public deletePokemon(pokemonId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/pokemon/delete/${pokemonId}`);
   }
+
+  public addWishList(pokemon:Pokemon): Observable<void>{
+    const headers = {'content-type':'application/json'};
+    let cookie = this.getCookie("userinfo");
+    let user = JSON.parse(JSON.parse(cookie));
+    let body = `{
+                  "userid":{"id":${user.id}},
+                  "pokeid":{"id":${pokemon.id}}
+                }`
+    return this.http.post<any>(`${this.apiServerUrl}/wishlist/add`,body,{'headers':headers});
+  }
+
+  private getCookie(name: string): string|null {
+    const nameLenPlus = (name.length + 1);
+    return document.cookie
+      .split(';')
+      .map(c => c.trim())
+      .filter(cookie => {
+        return cookie.substring(0, nameLenPlus) === `${name}=`;
+      })
+      .map(cookie => {
+        return decodeURIComponent(cookie.substring(nameLenPlus));
+      })[0] || null;
+  }
 }

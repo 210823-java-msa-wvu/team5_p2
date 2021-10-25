@@ -44,12 +44,17 @@
     <p>Balance:{{currentUser.balance}}</p>
     </div>
   </mat-expansion-panel>
+  <div class="search-deal">
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Deal">
+  </div>
 </mat-accordion>
+
 <br>
 <!--main window-->
 <div class="container" id="main-container">
     <div class="row">
-        <div *ngFor="let deal of deals" class="col-md-6 col-xl-3">
+
+        <div *ngFor="let deal of deals | filter:searchText" class="col-md-6 col-xl-3">
             <div class="card m-b-30">
             <div class="card-body row">
                <div class="col-6">

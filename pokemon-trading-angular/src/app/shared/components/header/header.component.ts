@@ -48,4 +48,21 @@ export class HeaderComponent implements OnInit {
     }
     
   }
+
+  searchText;
+
+  // public searchPokemons(key: string): void {
+  //   console.log(key);
+  //   const results: Pokemon[] = [];
+  //   for (const pokemon of this.pokemons) {
+  //     if (pokemon.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
+  //     ) {
+  //       results.push(pokemon);
+  //     }
+  //   }
+  //   this.pokemons = results;
+  //   if (results.length === 0 || !key) {
+  //     this.getPokemons();
+  //   }
+  // }
 }
