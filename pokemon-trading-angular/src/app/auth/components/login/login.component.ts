@@ -5,6 +5,7 @@ import { AlertService } from 'ngx-alerts';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProgressBarService } from 'src/app/shared/services/progress-bar.service';
 import { Location } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
         console.log('User logged in');
         this.alertService.success('Logged In');
         this.progressBar.completeLoading();
-        this.route.navigate(['/main']); 
+        //this.route.navigate(['/main']);
+        window.location.replace(`${environment.frontendBaseUrl}/main`);
       },
       error: err => {
         this.progressBar.setError();

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AuthService } from '../../services/auth.service';
 import { ProgressBarService } from '../../services/progress-bar.service';
 
@@ -23,7 +24,7 @@ export class HeaderComponent implements OnInit {
 
   public logout():void{
     this.deleteAllCookies();
-    window.location.replace("http://localhost:4200");
+    window.location.replace(`${environment.frontendBaseUrl}`);
   }
 
   private deleteAllCookies() {
