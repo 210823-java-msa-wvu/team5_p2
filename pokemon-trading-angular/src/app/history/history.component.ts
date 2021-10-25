@@ -18,20 +18,23 @@ export class HistoryComponent implements OnInit {
               private transactionService:TransactionService) { }
 
   ngOnInit(): void {
-// this.getTransactions();
+ this.getTransactions();
 
   }
 // get transactions
-// public getTransactions(borsId:number): void {
-//   this.transactionService.getTransaction(this.transactions[0].seller.id || this.transactions[0].buyer.id).subscribe(
-//     (response: Transaction[]) => {
-//       this.transactions = response;
-//       console.log(this.transactions[0].id);
-//     },
-//     (error: HttpErrorResponse) => {
-//       alert(error.message);
-//     }
-//   );
-// }
+public getTransactions(): void {
+  this.transactionService.getTransaction().subscribe(
+    (response: Transaction[]) => {
+      this.transactions = response;
+      console.log(this.transactions[0].id);
+
+    },
+    (error: HttpErrorResponse) => {
+      alert(error.message);
+    }
+  );
 }
 
+
+
+}

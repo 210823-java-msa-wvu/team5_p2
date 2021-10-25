@@ -6,10 +6,10 @@ export interface Transaction{
     type: number;
     buyer: User;
     seller: User;
-    complete_date: string;
+    completeDate: string;
     price: number;
     trader_for: number;
-    pokeid: Pokemon;
+    pokeId: Pokemon;
     description: string;
     status: number;
 }

@@ -26,23 +26,25 @@ public getDeals(): void {
   this.dealSevice.getDeal().subscribe(
     (response: Deal[]) => {
       this.deals = response;
-      console.log(this.deals[0].pokeId);
+      // console.log(this.deals[0].pokeId);
     },
     (error: HttpErrorResponse) => {
       alert(error.message);
     }
   );
+  }
+
+public deleteDeals(Id:number) {
+  this.dealSevice.deleteDeal(Id).subscribe(
+    (response) => {
+     
+      location.reload();
+    },
+    (error: HttpErrorResponse) => {
+      alert(error.message);
+
+    }
+  );
+}
 }
 
-// public deleteWishlists(): void {
-//   this.wishlistSevice.getWishlist().subscribe(
-//     (response: Wishlist[]) => {
-//       this.wishlists = response;
-//       console.log(this.wishlists[0].pokeid);
-//     },
-//     (error: HttpErrorResponse) => {
-//       alert(error.message);
-//     }
-//   );
-// }
-}

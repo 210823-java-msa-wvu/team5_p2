@@ -11,15 +11,28 @@ export class DealService {
   constructor(private http: HttpClient){}
 
   public getDeal(): Observable<Deal[]> {
-    return this.http.get<Deal[]>(`${this.apiServerUrl}/deal/see`);
+    let cookie = this.getCookie("userinfo");
+    let user = JSON.parse(JSON.parse(cookie));
+    return this.http.get<Deal[]>(`${this.apiServerUrl}/user/mysell/${user.id}`);
+  }
+
+//helper function
+  // the cookie or `null`, if the key is not found.
+  private getCookie(name: string): string|null {
+    const nameLenPlus = (name.length + 1);
+    return document.cookie
+      .split(';')
+      .map(c => c.trim())
+      .filter(cookie => {
+        return cookie.substring(0, nameLenPlus) === `${name}=`;
+      })
+      .map(cookie => {
+        return decodeURIComponent(cookie.substring(nameLenPlus));
+      })[0] || null;
+  }
+
+
+  public deleteDeal(DealId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/deal/delete/${DealId}`,{withCredentials:true});
   }
 }
-
-// //   public addWishlist(wishlist: Wishlist): Observable<Wishlist> {
-// //     return this.http.post<Wishlist>(`${this.apiServerUrl}/wishlist/add`, wishlist);
-// //   }
-
-//   public deleteWishlist(wishlistId: number): Observable<void> {
-//     return this.http.delete<void>(`${this.apiServerUrl}/wishlist/delete/${wishlistId}`);
-//   }
-// }

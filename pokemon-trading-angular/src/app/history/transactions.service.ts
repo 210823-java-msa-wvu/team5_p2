@@ -10,10 +10,26 @@ export class TransactionService {
 
   constructor(private http: HttpClient){}
 
-  public getTransaction(borsId: Transaction): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.apiServerUrl}/transaction/findtransactions/${borsId.buyer.id||borsId.seller.id}`,{withCredentials:true});
+  public getTransaction(): Observable<Transaction[]> {
+    let cookie = this.getCookie("userinfo");
+    let user = JSON.parse(JSON.parse(cookie));
+    return this.http.get<Transaction[]>(`${this.apiServerUrl}/transaction/findtransactions/${user.id}`,{withCredentials:true});
   }
 
+  //helper function
+  // the cookie or `null`, if the key is not found.
+  private getCookie(name: string): string|null {
+    const nameLenPlus = (name.length + 1);
+    return document.cookie
+      .split(';')
+      .map(c => c.trim())
+      .filter(cookie => {
+        return cookie.substring(0, nameLenPlus) === `${name}=`;
+      })
+      .map(cookie => {
+        return decodeURIComponent(cookie.substring(nameLenPlus));
+      })[0] || null;
+  }
 //   public getTransactionSell(): Observable<Transaction[]> {
 //     return this.http.get<Transaction[]>(`${this.apiServerUrl}/transaction`);
 //   }
