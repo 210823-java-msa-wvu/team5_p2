@@ -30,6 +30,7 @@ export class MainMenuComponent implements OnInit {
     this.populateUser();
   }
 
+
   public getPokemons(): void {
     this.pokemonService.getPokemons().subscribe(
       (response: Pokemon[]) => {

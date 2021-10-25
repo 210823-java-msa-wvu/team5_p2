@@ -42,7 +42,7 @@ export class AuthService {
     return this.loginStatus.asObservable();
   }
 
-  private getCookie(name: string): string|null {
+  public getCookie(name: string): string|null {
     const nameLenPlus = (name.length + 1);
     return document.cookie
       .split(';')

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -11,7 +12,7 @@ import { ProgressBarService } from '../../services/progress-bar.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private progress: NgProgress, public progressBar: ProgressBarService, private authService: AuthService) { }
+  constructor(private progress: NgProgress, public progressBar: ProgressBarService, private authService: AuthService, public route: Router) { }
 
   LoginStatus$ : Observable<boolean>;
 
@@ -34,5 +35,17 @@ export class HeaderComponent implements OnInit {
         var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
+  }
+
+  public checkCookie(): void {
+    if(this.authService.getCookie("userinfo") != null )
+    {
+      this.route.navigate(['/main']);
+    }
+    else
+    {
+      this.route.navigate(['']);
+    }
+    
   }
 }

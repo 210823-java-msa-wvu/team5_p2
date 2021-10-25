@@ -3,8 +3,7 @@
              <ngx-alerts></ngx-alerts>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand"
-    [routerLink]="['']"
-    routerLinkActive="router-link-active"><i class="fas fa-user-clock"></i> Pokemon Trading</a>
+    (click)="checkCookie()">Pokemon Trading</a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -42,13 +41,17 @@
 
             <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
                 <a class="nav-link"
-                *ngIf="LoginStatus" 
+                *ngIf="LoginStatus"
+                [routerLink]="['wishlist']"
+                routerLinkActive="active" 
                 >Wishlist</a>
             </li>
 
             <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
                 <a class="nav-link"
-                *ngIf="LoginStatus" 
+                *ngIf="LoginStatus"
+                [routerLink]="['balance']"
+                routerLinkActive="active" 
                 >Load balance</a>
             </li>
 
