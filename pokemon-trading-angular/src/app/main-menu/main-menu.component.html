@@ -107,6 +107,7 @@
                             <p><strong>Deal</strong> {{deal.id}}</p>
                             <p><strong>Seller:</strong> {{deal.seller.username}}</p>
                             <p><strong>Expire date:</strong> {{deal.expireDate|date}}</p>
+                            <p><strong>Description:</strong> {{deal.description}}</p>
                             <p *ngIf="deal.highestBidder!=null&&deal.type==2"><strong>Current Winner:</strong> {{deal.highestBidder.username}}</p>
                             <p *ngIf="deal.highestBidder==null&&deal.type==2"><strong>Current Winner:</strong> No Bidder</p>                           
                             <a *ngIf="deal.type==2" (click)="openModal(content,deal)" style="margin-right: 5px; margin-bottom: 0px;" class="btn btn-primary" data-placement="top" id="cac">Bid!</a>
