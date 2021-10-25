@@ -27,7 +27,6 @@
        </form>
     </div>
 </nav>-->
-
 <!--side toggle pannel-->
 <!-- <mat-accordion>
   <mat-expansion-panel (opened)="panelOpenState = true"
@@ -48,18 +47,15 @@
     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Deal">
   </div>
 </mat-accordion> -->
-
 <h1>Welcome {{currentUser.username}}</h1>
 <h2>Your Balance is ${{currentUser.balance}}</h2>
 <div class="search-deal">
   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Deal">
 </div>
-
 <br>
 <!--main window-->
 <!-- <div class="container" id="main-container">
     <div class="row">
-
         <div *ngFor="let deal of deals | filter:searchText" class="col-md-6 col-xl-3">
             <div class="card m-b-30">
             <div class="card-body row">
@@ -84,7 +80,6 @@
                   <a (click)="addToWishList(deal)" class="btn btn-primary tooltips" data-placement="top">Add wishlist!</a>
                </div>
             </div>
-  
             </div>
         </div>
     </div>
@@ -109,9 +104,9 @@
                             <p><strong>Expire date:</strong> {{deal.expireDate|date}}</p>
                             <p><strong>Description:</strong> {{deal.description}}</p>
                             <p *ngIf="deal.highestBidder!=null&&deal.type==2"><strong>Current Winner:</strong> {{deal.highestBidder.username}}</p>
-                            <p *ngIf="deal.highestBidder==null&&deal.type==2"><strong>Current Winner:</strong> No Bidder</p>                           
+                            <p *ngIf="deal.highestBidder==null&&deal.type==2"><strong>Current Winner:</strong> No Bidder</p>                          
                             <a *ngIf="deal.type==2" (click)="openModal(content,deal)" style="margin-right: 5px; margin-bottom: 0px;" class="btn btn-primary" data-placement="top" id="cac">Bid!</a>
-                            <a (click)="doBuy(deal)" class="btn btn-primary text-uppercase" id="cac">Purchase Now</a>                           
+                            <a (click)="doBuy(deal)" class="btn btn-primary text-uppercase" id="cac">Purchase Now</a>                          
                         </div>
                       </div>
                   </div>
@@ -119,8 +114,6 @@
           </div>
         </div>
   </div>
-
-
 <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Create a new sell!</h4>

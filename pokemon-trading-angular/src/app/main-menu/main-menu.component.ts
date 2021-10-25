@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../pokemon/pokemon';
 import { PokemonService } from '../pokemon/pokemon.service';
+
 import { Deal, User } from './main-menu';
 import { MainMenuService } from './main-menu.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,10 +15,13 @@ import { NgForm } from '@angular/forms';
 })
 export class MainMenuComponent implements OnInit {
   closeResult:string;
+
   currentUser:User;
+ 
   currentDeal:number;
   typeTable:string[]=['','Buy Now','Auction','Trade'];
   panelOpenState = false;
+
   public sellType:number;
   public deals:Deal[];
   public pokemons:Pokemon[];
@@ -30,6 +34,7 @@ export class MainMenuComponent implements OnInit {
     this.getPokemons();
     this.getDeals();
     this.populateUser();
+
   }
 
 
@@ -56,6 +61,22 @@ export class MainMenuComponent implements OnInit {
       }
     );
   }
+
+  // public onSubmit(f:NgForm):void{
+
+  //   this.mainMenuService.createSell(f).subscribe(
+  //     (response)=>{
+  //       alert(`succeed, item created on market.`);
+  //       window.location.reload();
+  //     },
+  //     (error:HttpErrorResponse)=>{
+  //       alert(error.message);
+  //     }
+  //   )
+
+  //   console.log(JSON.stringify(f.value));
+
+  // }
 
   public doBuy(deal:Deal):void{
     this.mainMenuService.buyItem(deal).subscribe(
@@ -115,6 +136,7 @@ export class MainMenuComponent implements OnInit {
     }
   }
 
+
   public populateUser():void{
     let cookie = this.getCookie("userinfo");
     this.currentUser = JSON.parse(JSON.parse(cookie));
@@ -143,6 +165,7 @@ export class MainMenuComponent implements OnInit {
   }
 
 
+
   //helper function
   // the cookie or `null`, if the key is not found.
   private getCookie(name: string): string|null {
@@ -168,6 +191,6 @@ export class MainMenuComponent implements OnInit {
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
   }
-
+//This is a variable
   searchText;
 }
