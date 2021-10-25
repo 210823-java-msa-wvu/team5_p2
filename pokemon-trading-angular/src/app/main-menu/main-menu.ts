@@ -9,6 +9,7 @@ export interface Deal{
     expireDate:string;
     description:string;
     pokeId:Pokemon;
+    highestBidder:User|null;
 }
 
 export interface User{

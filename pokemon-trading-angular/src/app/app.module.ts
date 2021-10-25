@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
@@ -15,9 +15,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
+
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { MysellComponent } from './mysell/mysell.component';
 import { HistoryComponent } from './history/history.component';
+
+import { SubmitDealComponent } from './submit-deal/submit-deal.component';
+import { BalanceComponent } from './balance/balance.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+
+
 
 @NgModule({
   declarations: [
@@ -25,9 +34,12 @@ import { HistoryComponent } from './history/history.component';
     PokemonComponent,
     HomeComponent,
     MainMenuComponent,
+
     WishlistComponent,
     MysellComponent,
-    HistoryComponent
+    HistoryComponent,
+    SubmitDealComponent,
+    BalanceComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +48,11 @@ import { HistoryComponent } from './history/history.component';
     FormsModule,
     NgbModule,
     MatNativeDateModule,
+    MatExpansionModule,
     BrowserAnimationsModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    Ng2SearchPipeModule
 
   ],
   providers: [PokemonService,MainMenuService],

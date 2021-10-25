@@ -17,6 +17,10 @@ export class MainMenuComponent implements OnInit {
   closeResult:string;
 
   currentUser:User;
+ 
+  currentDeal:number;
+  typeTable:string[]=['','Buy Now','Auction','Trade'];
+  panelOpenState = false;
 
   public sellType:number;
   public deals:Deal[];
@@ -32,6 +36,7 @@ export class MainMenuComponent implements OnInit {
     this.populateUser();
 
   }
+
 
   public getPokemons(): void {
     this.pokemonService.getPokemons().subscribe(
@@ -97,7 +102,8 @@ export class MainMenuComponent implements OnInit {
     )
   }
 
-  public openModal(content) {
+  public openModal(content,deal:Deal) {
+    this.currentDeal=deal.id;
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -136,6 +142,23 @@ export class MainMenuComponent implements OnInit {
     this.currentUser = JSON.parse(JSON.parse(cookie));
   }
 
+  public logout():void{
+    this.deleteAllCookies();
+    window.location.replace("http://localhost:4200");
+  }
+
+  public onSubmit(f:NgForm){
+    this.mainMenuService.bidItem(f.value.bid_amount,this.currentDeal).subscribe(
+      (response:void)=>{
+        console.log(response);
+        alert(`successful, you became the highest bidder.`);
+        window.location.reload();
+      },
+      (error: HttpErrorResponse)=>{
+        alert(error.message);
+      }
+    );
+  }
 
   public doNothing():void{
     
@@ -158,4 +181,16 @@ export class MainMenuComponent implements OnInit {
       })[0] || null;
   }
 
+  private deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+  }
+//This is a variable
+  searchText;
 }

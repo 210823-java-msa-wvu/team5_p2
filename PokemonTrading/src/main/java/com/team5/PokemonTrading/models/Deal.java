@@ -28,11 +28,14 @@ public class Deal implements Serializable {
     @ManyToOne
     @JoinColumn(name="pokeid")
     private Pokemon pokeId;
+    @ManyToOne
+    @JoinColumn(name="highest_bidder")
+    private User highestBidder;
 
     public Deal() {
     }
 
-    public Deal(Integer type, Float price, User seller, LocalDate expireDate, Pokemon tradeFor, String description, Pokemon pokeId) {
+    public Deal(Integer type, Float price, User seller, LocalDate expireDate, Pokemon tradeFor, String description, Pokemon pokeId, User highestBidder) {
         this.type = type;
         this.price = price;
         this.seller = seller;
@@ -40,9 +43,10 @@ public class Deal implements Serializable {
         this.tradeFor = tradeFor;
         this.description = description;
         this.pokeId = pokeId;
+        this.highestBidder = highestBidder;
     }
 
-    public Deal(Integer id, Integer type, Float price, User seller, LocalDate expireDate, Pokemon tradeFor, String description, Pokemon pokeId) {
+    public Deal(Integer id, Integer type, Float price, User seller, LocalDate expireDate, Pokemon tradeFor, String description, Pokemon pokeId, User highestBidder) {
         this.id = id;
         this.type = type;
         this.price = price;
@@ -51,6 +55,15 @@ public class Deal implements Serializable {
         this.tradeFor = tradeFor;
         this.description = description;
         this.pokeId = pokeId;
+        this.highestBidder = highestBidder;
+    }
+
+    public User getHighestBidder() {
+        return highestBidder;
+    }
+
+    public void setHighestBidder(User highestBidder) {
+        this.highestBidder = highestBidder;
     }
 
     public Integer getId() {

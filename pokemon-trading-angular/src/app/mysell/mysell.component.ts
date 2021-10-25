@@ -26,7 +26,8 @@ public getDeals(): void {
   this.dealSevice.getDeal().subscribe(
     (response: Deal[]) => {
       this.deals = response;
-      // console.log(this.deals[0].pokeId);
+
+      console.log(this.deals[0].pokeId);
     },
     (error: HttpErrorResponse) => {
       alert(error.message);
@@ -46,5 +47,9 @@ public deleteDeals(Id:number) {
     }
   );
 }
+}
+
+}
+
 }
 

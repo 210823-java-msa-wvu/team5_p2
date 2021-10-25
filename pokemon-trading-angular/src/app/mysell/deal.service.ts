@@ -11,6 +11,7 @@ export class DealService {
   constructor(private http: HttpClient){}
 
   public getDeal(): Observable<Deal[]> {
+
     let cookie = this.getCookie("userinfo");
     let user = JSON.parse(JSON.parse(cookie));
     return this.http.get<Deal[]>(`${this.apiServerUrl}/user/mysell/${user.id}`);
@@ -36,3 +37,6 @@ export class DealService {
     return this.http.delete<void>(`${this.apiServerUrl}/deal/delete/${DealId}`,{withCredentials:true});
   }
 }
+   
+
+

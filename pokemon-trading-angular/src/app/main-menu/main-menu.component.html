@@ -1,6 +1,4 @@
-
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" style="color:white;">Pokemon Trading</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -10,44 +8,112 @@
           <li class="nav-item active">
              <a class="nav-link" (click)="openModal(content)">Sell!<span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link">Balance</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link">Wishlist</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link">History</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" (click)="logout()">Logout</a>
+          </li>
        </ul>
        <form class="form-inline my-2 my-lg-0">
           <input type="search" (ngModelChange)="searchDeals(key.value)" #key="ngModel" ngModel
            name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search for pokemon..." required>
        </form>
     </div>
-
-</nav> -->
-
+</nav>-->
+<!--side toggle pannel-->
+<!-- <mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+      </mat-panel-title>
+      <mat-panel-description>
+        User details
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="panel-content">
+    <p><strong>User: </strong>{{currentUser.username}}</p>
+    <p><strong>Balance: </strong>${{currentUser.balance}}</p>
+    </div>
+  </mat-expansion-panel>
+  <div class="search-deal">
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Deal">
+  </div>
+</mat-accordion> -->
+<h1>Welcome {{currentUser.username}}</h1>
+<h2>Your Balance is ${{currentUser.balance}}</h2>
+<div class="search-deal">
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Deal">
+</div>
+<br>
 <!--main window-->
-<div class="container" id="main-container">
+<!-- <div class="container" id="main-container">
     <div class="row">
-        <div *ngFor="let deal of deals" class="col-md-6 col-xl-3">
+        <div *ngFor="let deal of deals | filter:searchText" class="col-md-6 col-xl-3">
             <div class="card m-b-30">
             <div class="card-body row">
                <div class="col-6">
                   <a href=""><img src="{{deal.pokeId.imgUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
                </div>
                 <div class="col-6 card-title align-self-center mb-0">
-                    <h5>{{deal.id}}</h5>
-                    <h5>{{deal.pokeId.name}}</h5>
-                    <h5>{{deal.price}}</h5>
-                    <h5>{{deal.seller.username}}</h5>
-                    <h5>{{deal.expireDate|date}}</h5>
+                    <h6>{{deal.id}}</h6>
+                    <h6>{{deal.pokeId.name}}</h6>
+                    <h6>Type: <br>{{typeTable[deal.type]}}</h6>
+                    <h6>Price: {{deal.price}}</h6>
+                    <h6>Seller: {{deal.seller.username}}</h6>
+                    <h6 *ngIf="deal.highestBidder!=null&&deal.type==2">Current Winner: {{deal.highestBidder.username}}</h6>
+                    <h6 *ngIf="deal.highestBidder==null&&deal.type==2">Current Winner: No Bidder</h6>
+                    <h6>Expire Date: {{deal.expireDate|date}}</h6>
                 </div>
             </div>
             <div class="card-body">
                <div class="float-right btn-group btn-group-sm">
-                  <a (click)="doBuy(deal)" class="btn btn-primary tooltips" data-placement="top">buy!</a>
-                  <a (click)="addToWishList(deal)" class="btn btn-primary tooltips" data-placement="top">add to wish list!</a>
+                  <a *ngIf="deal.type==2" (click)="openModal(content,deal)" style="margin-right: 5px;" class="btn btn-primary tooltips" data-placement="top">Bid!</a>
+                  <a (click)="doBuy(deal)" style="margin-right: 5px;" class="btn btn-primary tooltips" data-placement="top">Buy!</a>
+                  <a (click)="addToWishList(deal)" class="btn btn-primary tooltips" data-placement="top">Add wishlist!</a>
                </div>
             </div>
-  
             </div>
         </div>
     </div>
-</div>
-
+</div> -->
+  <div class="container" id="main-container">
+      <div class="row">
+              <div *ngFor="let deal of deals | filter:searchText" class="col-md-4 col-sm-6 col-xs-12">
+                <div class="card m-b-30">
+                  <div class="bs-pricing-item xs-last-border">
+                      <div class="bs-icon">
+                          <img src="{{deal.pokeId.imgUrl}}" alt="">
+                      </div>
+                      <div class="head ">
+                        <div class="price-title">
+                            <h2>{{deal.pokeId.name}}</h2>
+                            <div class="separator"></div>
+                        </div>
+                        <div class="price">
+                            <h1><sup>$</sup>{{deal.price}} </h1>
+                            <p><strong>Deal</strong> {{deal.id}}</p>
+                            <p><strong>Seller:</strong> {{deal.seller.username}}</p>
+                            <p><strong>Expire date:</strong> {{deal.expireDate|date}}</p>
+                            <p><strong>Description:</strong> {{deal.description}}</p>
+                            <p *ngIf="deal.highestBidder!=null&&deal.type==2"><strong>Current Winner:</strong> {{deal.highestBidder.username}}</p>
+                            <p *ngIf="deal.highestBidder==null&&deal.type==2"><strong>Current Winner:</strong> No Bidder</p>                          
+                            <a *ngIf="deal.type==2" (click)="openModal(content,deal)" style="margin-right: 5px; margin-bottom: 0px;" class="btn btn-primary" data-placement="top" id="cac">Bid!</a>
+                            <a (click)="doBuy(deal)" class="btn btn-primary text-uppercase" id="cac">Purchase Now</a>                          
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+  </div>
 <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Create a new sell!</h4>
@@ -58,55 +124,17 @@
     <div class="modal-body">
       <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
         <div class="form-group">
-          <label>Type of trade:</label>
+          <label>Bid Amount:</label>
           <div class="input-group">
-
-            <select [(ngModel)]="sellType" id="type" name="type" class="form-control" ngModel>
-                <option value=1>buy now</option>
-                <option value=2>auction</option>
-                <option value=3>trade</option>
-            </select>
-          </div>
-          <label>Valid until:</label>
-          <div class="input-group">
-            <input id="expire_date" name="expire_date" type="date" class="form-control" ngModel>
-          </div>
-          <label>Item:</label>
-          <div class="input-group">
-            <select id="item" name="item" class="form-control" ngModel>
-                <option *ngFor="let pokemon of pokemons" value={{pokemon.id}}>{{pokemon.name}}</option>
-            </select>
-          </div>
-          <label>Description:</label>
-          <div class="input-group">
-
-            <input id="description" name="description" rows="3" type="text" class="form-control" ngModel>
-          </div>
-          <div *ngIf="sellType<3">
-            <label>Price:</label>
-            <div class="input-group">
-                <input id="price" name="price" type="number" step="0.01" class="form-control" ngModel>
-            </div>
-          </div>
-          <div *ngIf="sellType==3">
-            <label>Trade for:</label>
-            <div class="input-group">
-
-                <select id="trade_for" name="trade_for" class="form-control" ngModel>
-
-                    <option *ngFor="let pokemon of pokemons" value={{pokemon.id}}>{{pokemon.name}}</option>
-                </select>
-            </div>
+            <input id="bid_amount" name="bid_amount" type="number" step="0.01" class="form-control" ngModel>
           </div>
         </div>
         <div class="text-center">
-            <button data-dismiss="modal" class="btn btn-info">Submit</button>
+            <button data-dismiss="modal" class="btn btn-info">Bid</button>
         </div>
       </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
     </div>
-
 </ng-template>
-

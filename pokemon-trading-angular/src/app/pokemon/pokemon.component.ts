@@ -3,6 +3,8 @@ import { Pokemon } from './pokemon';
 import { PokemonService } from './pokemon.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { MainMenuService } from '../main-menu/main-menu.service';
+
 
 @Component({
   selector: 'app-pokemon',
@@ -14,7 +16,7 @@ export class PokemonComponent implements OnInit {
   public editPokemon: Pokemon;
   public deletePokemon: Pokemon;
 
-  constructor(private pokemonService: PokemonService) { }
+  constructor(private pokemonService: PokemonService, private mainMenuService:MainMenuService) { }
 
   ngOnInit(): void {
     this.getPokemons();
@@ -107,6 +109,18 @@ export class PokemonComponent implements OnInit {
     }
     container.appendChild(button);
     button.click();
+  }
+
+  public addToWishList(pokemon:Pokemon):void{
+    this.pokemonService.addWishList(pokemon).subscribe(
+      (response:void)=>{
+        console.log(response);
+        alert(`successful, ${pokemon.name} has been added to your wishlist.`);
+      },
+      (error: HttpErrorResponse)=>{
+        alert(error.message);
+      }
+    )
   }
 
 }

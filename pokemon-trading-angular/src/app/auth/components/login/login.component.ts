@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProgressBarService } from 'src/app/shared/services/progress-bar.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +13,13 @@ import { ProgressBarService } from 'src/app/shared/services/progress-bar.service
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, public progressBar: ProgressBarService, private alertService: AlertService, private route: Router) { }
+  constructor(private authService: AuthService, public progressBar: ProgressBarService, private alertService: AlertService, public route: Router, public _location: Location) { }
 
   ngOnInit() {
   }
 
   onSubmit(f: NgForm) {
+    this.authService.checkLoginStatus;
     this.alertService.info('Checking User Info');
     this.progressBar.startLoading();
 
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
         console.log('User logged in');
         this.alertService.success('Logged In');
         this.progressBar.completeLoading();
-        this.route.navigate(['/main']);
+        this.route.navigate(['/main']); 
       },
       error: err => {
         this.progressBar.setError();
