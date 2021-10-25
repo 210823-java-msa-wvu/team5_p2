@@ -9,11 +9,12 @@ Author URI: http://bootstrapthemes.co
    Author's custom styles
    ========================================================================== */
    html,
+  
    body {
        background-color:#fafafa;
        font-size: 16px;
        color: #797979;
-       width: 100%;
+       width: 100%; 
        padding: 0;
        margin-left: 0;
        margin-right: 0;
