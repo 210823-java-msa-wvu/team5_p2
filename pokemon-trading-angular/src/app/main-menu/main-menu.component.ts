@@ -62,21 +62,21 @@ export class MainMenuComponent implements OnInit {
     );
   }
 
-  public onSubmit(f:NgForm):void{
+  // public onSubmit(f:NgForm):void{
 
-    this.mainMenuService.createSell(f).subscribe(
-      (response)=>{
-        alert(`succeed, item created on market.`);
-        window.location.reload();
-      },
-      (error:HttpErrorResponse)=>{
-        alert(error.message);
-      }
-    )
+  //   this.mainMenuService.createSell(f).subscribe(
+  //     (response)=>{
+  //       alert(`succeed, item created on market.`);
+  //       window.location.reload();
+  //     },
+  //     (error:HttpErrorResponse)=>{
+  //       alert(error.message);
+  //     }
+  //   )
 
-    console.log(JSON.stringify(f.value));
+  //   console.log(JSON.stringify(f.value));
 
-  }
+  // }
 
   public doBuy(deal:Deal):void{
     this.mainMenuService.buyItem(deal).subscribe(

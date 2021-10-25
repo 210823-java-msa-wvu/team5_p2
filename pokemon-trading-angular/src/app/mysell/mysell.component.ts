@@ -49,7 +49,5 @@ public deleteDeals(Id:number) {
 }
 }
 
-}
 
-}
 
