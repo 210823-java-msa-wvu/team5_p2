@@ -30,7 +30,5 @@ export class TransactionService {
         return decodeURIComponent(cookie.substring(nameLenPlus));
       })[0] || null;
   }
-//   public getTransactionSell(): Observable<Transaction[]> {
-//     return this.http.get<Transaction[]>(`${this.apiServerUrl}/transaction`);
-//   }
+
 }
