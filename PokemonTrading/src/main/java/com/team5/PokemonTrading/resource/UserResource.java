@@ -2,12 +2,8 @@ package com.team5.PokemonTrading.resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team5.PokemonTrading.models.Deal;
-import com.team5.PokemonTrading.models.Transaction;
-import com.team5.PokemonTrading.models.User;
-import com.team5.PokemonTrading.services.DealServices;
-import com.team5.PokemonTrading.services.TransactionServices;
-import com.team5.PokemonTrading.services.UserServices;
+import com.team5.PokemonTrading.models.*;
+import com.team5.PokemonTrading.services.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,11 +21,15 @@ public class UserResource {
     private final UserServices userServices;
     private final DealServices dealServices;
     private final TransactionServices transactionServices;
+    private final PokemonServices pokemonServices;
+    private final WishlistServices wishlistServices;
 
-    public UserResource(UserServices userServices, DealServices dealServices, TransactionServices transactionServices) {
+    public UserResource(UserServices userServices, DealServices dealServices, TransactionServices transactionServices, PokemonServices pokemonServices, WishlistServices wishlistServices) {
         this.userServices = userServices;
         this.dealServices = dealServices;
         this.transactionServices = transactionServices;
+        this.pokemonServices = pokemonServices;
+        this.wishlistServices = wishlistServices;
     }
 
     //can use cookie
@@ -36,6 +37,23 @@ public class UserResource {
     public ResponseEntity<List<Deal>> getMyCurrentSells (@PathVariable("id") Integer id) {
         List<Deal> deals = dealServices.findDealsBySeller(id);
         return new ResponseEntity<>(deals, HttpStatus.OK);
+    }
+
+    @GetMapping("/notify")
+    public ResponseEntity<List<Pokemon>> wishlistNotify (@CookieValue("userinfo") String userinfo) throws JsonProcessingException {
+        ObjectMapper om = new ObjectMapper();
+        User u = om.readValue(userinfo,User.class);
+
+        List<Pokemon> pokemons = new ArrayList<>();
+        List<Deal> deals = dealServices.findAllDeals();
+        List<Wishlist> wishlists = wishlistServices.viewMyWishlist(u.getId());
+        for (int i = 0; i < wishlists.size(); i++) {
+            for (int x = 0; x < deals.size(); x++) {
+                if (deals.get(x).getPokeId() == wishlists.get(i).getPokeid())
+                    pokemons.add(pokemonServices.findPokemonById(wishlists.get(i).getPokeid().getId()));
+            }
+        }
+        return new ResponseEntity<>(pokemons, HttpStatus.OK);
     }
 
     @PostMapping("/buy/{id}")
