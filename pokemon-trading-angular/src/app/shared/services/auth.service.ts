@@ -15,13 +15,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  public login(model: any) {
-    return this.http.post(`${this.apiServerUrl}/front/login`, model, {withCredentials:true})
-    .pipe(
-      map((response: any) => {
-        const user = response;
-      })
-    );
+  public login(model: any): Observable <User>
+  {
+    return this.http.post<User>(`${this.apiServerUrl}/front/login`, model);
   }
 
   public register(model: any) {
@@ -55,4 +51,16 @@ export class AuthService {
       })[0] || null;
   }
 
+
+  // New cookies method
+
+
+
+}
+
+export class User {
+  id: number;
+  username: string;
+  password: string;
+  balance: number;
 }

@@ -7,6 +7,7 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AlertModule } from 'ngx-alerts';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -26,6 +27,9 @@ import { AlertModule } from 'ngx-alerts';
   ],
   exports: [
     ColumnOneComponent
+  ],
+  providers: [
+    CookieService
   ]
 })
 export class SharedModule { }
