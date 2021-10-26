@@ -205,6 +205,10 @@ export class MainMenuComponent implements OnInit {
       (response: Pokemon[]) => {
         this.pokeWishlists = response;
         console.log(this.pokeWishlists);
+        for (var val of response) {
+          this.alertService.success('Your pokemon from wishlist ' + val.name + ' is on market now!');
+        }
+
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
