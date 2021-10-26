@@ -44,3 +44,8 @@ body{
     border-color: #5369f8;
     color: #fff;
 }
+
+.btn-primary {
+    background-color: #5269f8;
+    border-color: #5369f8;
+}

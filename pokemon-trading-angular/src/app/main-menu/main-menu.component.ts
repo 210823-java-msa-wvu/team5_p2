@@ -8,6 +8,8 @@ import { MainMenuService } from './main-menu.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { WishlistService } from '../wishlist/wishlist.service';
+import { Wishlist } from '../wishlist/wishlist';
 
 @Component({
   selector: 'app-main-menu',
@@ -26,16 +28,17 @@ export class MainMenuComponent implements OnInit {
   public sellType:number;
   public deals:Deal[];
   public pokemons:Pokemon[];
+  public wishlists:Wishlist[];
 
   constructor(private mainMenuService:MainMenuService,
               private pokemonService:PokemonService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private wishlistSevice:WishlistService) { }
 
   ngOnInit(): void {
     this.getPokemons();
     this.getDeals();
     this.populateUser();
-
   }
 
 
@@ -194,4 +197,8 @@ export class MainMenuComponent implements OnInit {
   }
 //This is a variable
   searchText;
+
+  public wishlistNotify(): void {
+
+  }
 }
