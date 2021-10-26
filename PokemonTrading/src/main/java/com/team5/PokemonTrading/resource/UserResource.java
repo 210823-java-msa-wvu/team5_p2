@@ -39,7 +39,7 @@ public class UserResource {
         return new ResponseEntity<>(deals, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/notify",consumes = "application/json")
+    @PostMapping(value = "/notify",consumes = "application/json")
     public ResponseEntity<List<Pokemon>> wishlistNotify (@RequestBody Map<String, String> json) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         String userinfo = json.get("userinfo");

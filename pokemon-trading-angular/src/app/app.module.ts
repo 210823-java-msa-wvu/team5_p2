@@ -10,6 +10,7 @@ import { PokemonComponent } from './pokemon/pokemon.component';
 import { PokemonService } from './pokemon/pokemon.service';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { MainMenuService } from './main-menu/main-menu.service';
+import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
@@ -21,7 +22,6 @@ import { BalanceComponent } from './balance/balance.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MysellComponent } from './mysell/mysell.component';
-import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -52,6 +52,7 @@ import { CookieService } from 'ngx-cookie-service';
     Ng2SearchPipeModule
 
   ],
+
   providers: [PokemonService,MainMenuService, CookieService],
   bootstrap: [AppComponent]
 })

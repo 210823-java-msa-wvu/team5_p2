@@ -28,7 +28,7 @@ public class WishlistResource {
         return new ResponseEntity<>(newWishlist, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/view",consumes = "application/json")
+    @PostMapping(value = "/view",consumes = "application/json")
     public ResponseEntity<List<Wishlist>> viewMyWishlist(@RequestBody Map<String, String> json) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         String userinfo = json.get("userinfo");

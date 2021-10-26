@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { Wishlist } from '../wishlist/wishlist';
 import { AlertService } from 'ngx-alerts';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-main-menu',
@@ -34,7 +35,8 @@ export class MainMenuComponent implements OnInit {
   constructor(private mainMenuService:MainMenuService,
               private pokemonService:PokemonService,
               private modalService: NgbModal,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.getPokemons();
@@ -86,7 +88,11 @@ export class MainMenuComponent implements OnInit {
 
   public doBuy(deal:Deal):void{
     this.mainMenuService.buyItem(deal).subscribe(
-      (response:void)=>{
+      (response)=>{
+        let cookieValue:string=`"{\\"id\\":${response.id},\\"username\\":\\"${response.username}\\",\\"password\\":\\"${response.password}\\",\\"balance\\":${response.balance}}"`
+        //console.log(cookieValue);
+        this.cookieService.set('userinfo',cookieValue);
+        //console.log(this.cookieService.get('userinfo'));
         window.location.reload();
       },
       (error: HttpErrorResponse)=>{
@@ -155,8 +161,11 @@ export class MainMenuComponent implements OnInit {
 
   public onSubmit(f:NgForm){
     this.mainMenuService.bidItem(f.value.bid_amount,this.currentDeal).subscribe(
-      (response:void)=>{
-        console.log(response);
+      (response)=>{
+        let cookieValue:string=`"{\\"id\\":${response.id},\\"username\\":\\"${response.username}\\",\\"password\\":\\"${response.password}\\",\\"balance\\":${response.balance}}"`;
+        //console.log(cookieValue);
+        this.cookieService.set('userinfo',cookieValue);
+        //console.log(this.cookieService.get('userinfo'));
         alert(`successful, you became the highest bidder.`);
         window.location.reload();
       },

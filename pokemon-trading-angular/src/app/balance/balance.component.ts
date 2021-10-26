@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { BalanceService } from './balance.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { BalanceService } from './balance.service';
 export class BalanceComponent implements OnInit {
   public amount:number = 0;
   
-  constructor(private balanceService:BalanceService) { }
+  constructor(private balanceService:BalanceService,
+              private cookieService:CookieService) { }
 
   ngOnInit(): void {
   }
@@ -18,6 +20,10 @@ export class BalanceComponent implements OnInit {
   public load(): void {
     this.balanceService.loadAmount(this.amount).subscribe(
       (response) => {
+        let cookieValue:string=`"{\\"id\\":${response.id},\\"username\\":\\"${response.username}\\",\\"password\\":\\"${response.password}\\",\\"balance\\":${response.balance}}"`;
+        //console.log(cookieValue);
+        this.cookieService.set('userinfo',cookieValue);
+        //console.log(this.cookieService.get('userinfo'));
         alert("successful");
         this.amount=0;
       },
@@ -30,6 +36,10 @@ export class BalanceComponent implements OnInit {
   public withdraw(): void {
     this.balanceService.loadAmount(-this.amount).subscribe(
       (response) => {
+        let cookieValue:string=`"{\\"id\\":${response.id},\\"username\\":\\"${response.username}\\",\\"password\\":\\"${response.password}\\",\\"balance\\":${response.balance}}"`
+        //console.log(cookieValue);
+        this.cookieService.set('userinfo',cookieValue);
+        //console.log(this.cookieService.get('userinfo'));
         alert("successful");
         this.amount=0;
       },

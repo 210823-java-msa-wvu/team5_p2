@@ -5,7 +5,8 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pokemon } from '../pokemon/pokemon';
-import { Deal } from './main-menu';
+import { Deal, User } from './main-menu';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,23 +15,33 @@ export class MainMenuService {
   private url = environment.apiBaseUrl;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private cookieService: CookieService) { }
 
   public getDeals(): Observable<Deal[]>{
 
     return this.http.get<Deal[]>(`${this.url}/deal`,{withCredentials:true});
   }
 
-  public buyItem(deal:Deal): Observable<void>{
-    return this.http.post<void>(`${this.url}/user/buy/${deal.id}`,null,{withCredentials:true});
+  public buyItem(deal:Deal): Observable<User>{
+    let cookie = this.cookieService.get("userinfo");
+    
+    const headers = {'content-type':"application/json"};
+    let body = `{
+                  "userinfo":${cookie}
+                }`
+    return this.http.post<User>(`${this.url}/user/buy/${deal.id}`,body,{'headers':headers});
   }
 
-  public bidItem(amount:number,dealId:number): Observable<void>{
+  public bidItem(amount:number,dealId:number): Observable<User>{
+    let cookie = this.cookieService.get("userinfo");
+
     const headers = {'content-type':"application/json"};
     let body=`{
+                "userinfo":${cookie},
                 "amount":${amount}
               }`
-    return this.http.post<void>(`${this.url}/user/put/bid/${dealId}`,body,{'headers':headers,withCredentials:true});
+    return this.http.post<User>(`${this.url}/user/put/bid/${dealId}`,body,{'headers':headers});
   }
   /*
   public createSell(form:NgForm): Observable<void>{
@@ -54,7 +65,7 @@ export class MainMenuService {
 
   public addWishList(deal:Deal): Observable<void>{
     const headers = {'content-type':'application/json'};
-    let cookie = this.getCookie("userinfo");
+    let cookie = this.cookieService.get("userinfo");
     let user = JSON.parse(JSON.parse(cookie));
     let body = `{
                   "userid":{"id":${user.id}},
@@ -78,21 +89,13 @@ export class MainMenuService {
 
   public getWishlistNotify(): Observable<Pokemon[]> {
     // console.log("is this thing on?");
-    return this.http.get<Pokemon[]>(`${this.url}/user/notify`,{withCredentials:true});
+    let cookie = this.cookieService.get("userinfo");
+    
+    const headers = {'content-type':"application/json"};
+    let body = `{
+                  "userinfo":${cookie}
+                }`
+    return this.http.post<Pokemon[]>(`${this.url}/user/notify`,body,{'headers':headers});
   }
 
-  //helper function
-  // the cookie or `null`, if the key is not found.
-  private getCookie(name: string): string|null {
-    const nameLenPlus = (name.length + 1);
-    return document.cookie
-      .split(';')
-      .map(c => c.trim())
-      .filter(cookie => {
-        return cookie.substring(0, nameLenPlus) === `${name}=`;
-      })
-      .map(cookie => {
-        return decodeURIComponent(cookie.substring(nameLenPlus));
-      })[0] || null;
-  }
 }
