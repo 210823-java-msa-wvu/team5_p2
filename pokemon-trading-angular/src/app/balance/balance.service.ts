@@ -24,10 +24,6 @@ export class BalanceService {
                       "amount":"${amount}"
                     }`
     //console.log(body);
-<<<<<<< HEAD
-    return this.http.post<void>(`${this.url}/user/put/load`,body,{'headers':headers,withCredentials:true});
-=======
     return this.http.post<User>(`${this.url}/user/put/load`,body,{'headers':headers});
->>>>>>> ec2refactor
   }
 }
