@@ -43,12 +43,11 @@ public class DealResource {
 
     //to add new item to the market
     @PostMapping(value = "/sell",consumes = "application/json")
-    public ResponseEntity<Deal> addDeal(@RequestBody Map<String,String> json,
-                                        @CookieValue("userinfo") String userinfo) throws JsonProcessingException {
+    public ResponseEntity<Deal> addDeal(@RequestBody Map<String,String> json) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
-        User u = om.readValue(userinfo,User.class);
         Deal d = new Deal();
-        System.out.println(u);
+        String userinfo = json.get("userinfo");
+        User u = om.readValue(userinfo,User.class);
         d.setDescription(json.get("description"));
         d.setSeller(u);
         d.setType(Integer.parseInt(json.get("type")));
@@ -68,10 +67,11 @@ public class DealResource {
     }
 
     //to delete/remove market item by id //thank you Ton for taking it from here.
-    @DeleteMapping("/delete/{id}")
+    @PostMapping(value = "/delete/delete/{id}",consumes = "application/json")
     public ResponseEntity<?> deleteMyDeal(@PathVariable("id") Integer id,
-                                            @CookieValue("userinfo") String userinfo) throws JsonProcessingException {
+                                          @RequestBody Map<String,String> json) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
+        String userinfo = json.get("userinfo");
         User user = om.readValue(userinfo,User.class);
         Deal deal = dealServices.findById(id);
         //check to see if the wishlist owner matches cookie holder

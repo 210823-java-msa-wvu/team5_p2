@@ -39,9 +39,10 @@ public class UserResource {
         return new ResponseEntity<>(deals, HttpStatus.OK);
     }
 
-    @GetMapping("/notify")
-    public ResponseEntity<List<Pokemon>> wishlistNotify (@CookieValue("userinfo") String userinfo) throws JsonProcessingException {
+    @PostMapping(value = "/notify",consumes = "application/json")
+    public ResponseEntity<List<Pokemon>> wishlistNotify (@RequestBody Map<String, String> json) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
+        String userinfo = json.get("userinfo");
         User u = om.readValue(userinfo,User.class);
 
         List<Pokemon> pokemons = new ArrayList<>();
@@ -56,11 +57,12 @@ public class UserResource {
         return new ResponseEntity<>(pokemons, HttpStatus.OK);
     }
 
-    @PostMapping("/buy/{id}")
-    public ResponseEntity<?> processDeal(@CookieValue("userinfo") String userinfo,
+    @PostMapping(value = "/buy/{id}", consumes = "application/json")
+    public ResponseEntity<?> processDeal(@RequestBody Map<String, String> json,
                                          @PathVariable("id") Integer id,
                                          HttpServletResponse resp) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
+        String userinfo = json.get("userinfo");
         User u = om.readValue(userinfo,User.class);
 
 
@@ -83,26 +85,26 @@ public class UserResource {
             //update balance for current user, then send the updated cookie back to the browser
             currentUser.setBalance(newBuyerBalance);
             userServices.updateUser(currentUser);
-            Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
-            cookie.setPath("/");
-            resp.addCookie(cookie);
+            //Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
+            //cookie.setPath("/");
+            //resp.addCookie(cookie);
 
             seller.setBalance(newSellerBalance);
             userServices.updateUser(seller);
 
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(om.writeValueAsString(currentUser),HttpStatus.OK);
         }
         else
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    @PutMapping(value = "/bid/{id}", consumes = "application/json")
-    public ResponseEntity<?> processAuction(@CookieValue("userinfo") String userinfo,
-                                            @PathVariable("id") Integer id,
+    @PostMapping(value = "/put/bid/{id}", consumes = "application/json")
+    public ResponseEntity<?> processAuction(@PathVariable("id") Integer id,
                                             @RequestBody Map<String, String> json,
                                             HttpServletResponse resp) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         float amount = Float.parseFloat(json.get("amount"));
+        String userinfo = json.get("userinfo");
         User u = om.readValue(userinfo,User.class);
         int getUserId = u.getId();
         Deal currentDeal = dealServices.findById(id);
@@ -120,10 +122,10 @@ public class UserResource {
                 currentUser.setBalance(currentUser.getBalance()-amount);
                 dealServices.updateDeal(currentDeal);
                 userServices.updateUser(currentUser);
-                Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
-                cookie.setPath("/");
-                resp.addCookie(cookie);
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                //Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
+                //cookie.setPath("/");
+                //resp.addCookie(cookie);
+                return new ResponseEntity<>(om.writeValueAsString(currentUser),HttpStatus.OK);
             }
             else{
                 //when there is a previous bidder, return his points back, and deduction from current bidder.
@@ -136,23 +138,23 @@ public class UserResource {
                 dealServices.updateDeal(currentDeal);
                 userServices.updateUser(currentUser);
                 userServices.updateUser(previous_bidder);
-                Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
-                cookie.setPath("/");
-                resp.addCookie(cookie);
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                //Cookie cookie = new Cookie("userinfo",om.writeValueAsString(currentUser));
+                //cookie.setPath("/");
+                //resp.addCookie(cookie);
+                return new ResponseEntity<>(om.writeValueAsString(currentUser),HttpStatus.OK);
             }
         }
     }
 
     //front end will send in a put request with request body of a json of form {"amount":"-399.99"}
-    @PutMapping(value = "/load",consumes = "application/json")
-    public ResponseEntity<?> loadBalance(@CookieValue("userinfo") String userinfo,
-                                         @RequestBody Map<String, String> json,
+    @PostMapping(value = "/put/load",consumes = "application/json")
+    public ResponseEntity<?> loadBalance(@RequestBody Map<String, String> json,
                                          HttpServletResponse resp) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         float loadAmount = Float.parseFloat(json.get("amount"));
         //System.out.println(loadAmount);
         //System.out.println(userinfo);
+        String userinfo = json.get("userinfo");
         User u = om.readValue(userinfo,User.class);
         float newAmount = u.getBalance()+loadAmount;
         if(newAmount < 0){
@@ -162,10 +164,10 @@ public class UserResource {
             u.setBalance(newAmount);
             userServices.updateUser(u);
             //save the updated user cookie back to the response body
-            Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
-            cookie.setPath("/");
-            resp.addCookie(cookie);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            //Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
+            //cookie.setPath("/");
+            //resp.addCookie(cookie);
+            return new ResponseEntity<>(om.writeValueAsString(u),HttpStatus.ACCEPTED);
         }
     }
 }

@@ -23,7 +23,7 @@ export class PokemonService {
   }
 
   public deletePokemon(pokemonId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/pokemon/delete/delete/${pokemonId}`);
+    return this.http.post<void>(`${this.apiServerUrl}/pokemon/delete/delete/${pokemonId}`,null);
   }
 
   public addWishList(pokemon:Pokemon): Observable<void>{

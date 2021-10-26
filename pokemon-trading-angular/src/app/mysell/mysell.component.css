@@ -1,0 +1,57 @@
+
+img {
+    max-width: 90%;
+    height: auto;
+    margin-left: 7%;
+    }
+    
+    .search- {
+    max-width: 500px;
+    padding-bottom: 50px;
+    margin:auto;
+    }
+    
+    
+    .form-control {
+    box-shadow: 0 10px 40px 0 #B0C1D9;
+    }
+    
+    .container {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    color: #405065;
+    }
+    
+    .text-uppercase, .price {
+        text-align: center;
+    }
+    
+    .btn-primary{
+        color:white;
+        background-color: #998EFA;
+        border:1px solid;
+        border-color: #998EFA;
+        padding: 0.4rem 3rem;
+        margin-top:20px;
+        margin-bottom: 20px;
+    }
+    
+    .price h1{
+        color:#998EFA;
+        font-size:60px;
+        font-weight: 700;
+    }
+    
+    #cac {
+        color:white;
+        margin-bottom: 20px;
+    }
+    
+    h2, h1 {
+        text-align: center;
+    }
+    
+    p {
+        text-align: left;
+        margin-left: 20%;
+    }

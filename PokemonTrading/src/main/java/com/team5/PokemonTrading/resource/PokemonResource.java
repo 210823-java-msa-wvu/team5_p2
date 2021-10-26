@@ -42,13 +42,13 @@ public class PokemonResource {
         return new ResponseEntity<>(newPokemon, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @PostMapping("/put/update")
     public ResponseEntity<Pokemon> updatePokemon(@RequestBody Pokemon pokemon) {
         Pokemon updatePokemon = pokemonServices.updatePokemon(pokemon);
         return new ResponseEntity<>(updatePokemon, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/delete/{id}")
     public ResponseEntity<?> deletePokemon(@PathVariable("id") Integer id) {
         pokemonServices.deletePokemon(id);
         return new ResponseEntity<>(HttpStatus.OK);
