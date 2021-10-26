@@ -20,7 +20,7 @@ export class MainMenuService {
 
   public getDeals(): Observable<Deal[]>{
 
-    return this.http.get<Deal[]>(`${this.url}/deal`,{withCredentials:true});
+    return this.http.get<Deal[]>(`${this.url}/deal`);
   }
 
   public buyItem(deal:Deal): Observable<User>{
