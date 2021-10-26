@@ -1,4 +1,4 @@
-package com.team5.PokemonTrading;
+/*package com.team5.PokemonTrading;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +10,4 @@ class PokemonTradingApplicationTests {
 	void contextLoads() {
 	}
 
-}
+}*/
