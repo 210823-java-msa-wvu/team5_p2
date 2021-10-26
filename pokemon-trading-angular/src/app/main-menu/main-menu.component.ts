@@ -8,8 +8,8 @@ import { MainMenuService } from './main-menu.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { WishlistService } from '../wishlist/wishlist.service';
 import { Wishlist } from '../wishlist/wishlist';
+import { AlertService } from 'ngx-alerts';
 
 @Component({
   selector: 'app-main-menu',
@@ -29,16 +29,18 @@ export class MainMenuComponent implements OnInit {
   public deals:Deal[];
   public pokemons:Pokemon[];
   public wishlists:Wishlist[];
+  public pokeWishlists:Pokemon[];
 
   constructor(private mainMenuService:MainMenuService,
               private pokemonService:PokemonService,
               private modalService: NgbModal,
-              private wishlistSevice:WishlistService) { }
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.getPokemons();
     this.getDeals();
     this.populateUser();
+    this.wishlistNotify();
   }
 
 
@@ -199,6 +201,18 @@ export class MainMenuComponent implements OnInit {
   searchText;
 
   public wishlistNotify(): void {
+    this.mainMenuService.getWishlistNotify().subscribe(
+      (response: Pokemon[]) => {
+        this.pokeWishlists = response;
+        console.log(this.pokeWishlists);
+        for (var val of response) {
+          this.alertService.success('Your pokemon from wishlist ' + val.name + ' is on market now!');
+        }
 
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }
