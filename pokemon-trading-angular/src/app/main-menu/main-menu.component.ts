@@ -161,8 +161,11 @@ export class MainMenuComponent implements OnInit {
 
   public onSubmit(f:NgForm){
     this.mainMenuService.bidItem(f.value.bid_amount,this.currentDeal).subscribe(
-      (response:void)=>{
-        console.log(response);
+      (response)=>{
+        let cookieValue:string=`"{\\"id\\":${response.id},\\"username\\":\\"${response.username}\\",\\"password\\":\\"${response.password}\\",\\"balance\\":${response.balance}}"`;
+        //console.log(cookieValue);
+        this.cookieService.set('userinfo',cookieValue);
+        //console.log(this.cookieService.get('userinfo'));
         alert(`successful, you became the highest bidder.`);
         window.location.reload();
       },
