@@ -43,12 +43,9 @@ public class DealResource {
 
     //to add new item to the market
     @PostMapping(value = "/sell",consumes = "application/json")
-    public ResponseEntity<Deal> addDeal(@RequestBody Map<String,String> json,
-                                        @CookieValue("userinfo") String userinfo) throws JsonProcessingException {
+    public ResponseEntity<Deal> addDeal(@RequestBody Map<String,String> json) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
-        User u = om.readValue(userinfo,User.class);
         Deal d = new Deal();
-        System.out.println(u);
         d.setDescription(json.get("description"));
         d.setSeller(u);
         d.setType(Integer.parseInt(json.get("type")));
