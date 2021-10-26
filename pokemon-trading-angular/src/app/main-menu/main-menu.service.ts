@@ -38,7 +38,7 @@ export class MainMenuService {
     let body=`{
                 "amount":${amount}
               }`
-    return this.http.put<void>(`${this.url}/user/bid/${dealId}`,body,{'headers':headers,withCredentials:true});
+    return this.http.post<void>(`${this.url}/user/put/bid/${dealId}`,body,{'headers':headers,withCredentials:true});
   }
   /*
   public createSell(form:NgForm): Observable<void>{
