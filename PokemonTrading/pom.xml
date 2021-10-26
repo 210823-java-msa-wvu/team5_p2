@@ -11,6 +11,7 @@
 	<groupId>com.team5</groupId>
 	<artifactId>PokemonTrading</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>PokemonTrading</name>
 	<description>Pokemon Trading Platform</description>
 	<properties>
