@@ -10,6 +10,7 @@ import { PokemonComponent } from './pokemon/pokemon.component';
 import { PokemonService } from './pokemon/pokemon.service';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { MainMenuService } from './main-menu/main-menu.service';
+import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
@@ -51,7 +52,7 @@ import { MysellComponent } from './mysell/mysell.component';
     Ng2SearchPipeModule
 
   ],
-  providers: [PokemonService,MainMenuService],
+  providers: [PokemonService,MainMenuService,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

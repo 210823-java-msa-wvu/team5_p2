@@ -5,7 +5,8 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pokemon } from '../pokemon/pokemon';
-import { Deal } from './main-menu';
+import { Deal, User } from './main-menu';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +15,22 @@ export class MainMenuService {
   private url = environment.apiBaseUrl;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private cookieService: CookieService) { }
 
   public getDeals(): Observable<Deal[]>{
 
     return this.http.get<Deal[]>(`${this.url}/deal`,{withCredentials:true});
   }
 
-  public buyItem(deal:Deal): Observable<void>{
-    return this.http.post<void>(`${this.url}/user/buy/${deal.id}`,null,{withCredentials:true});
+  public buyItem(deal:Deal): Observable<User>{
+    let cookie = this.cookieService.get("userinfo");
+    
+    const headers = {'content-type':"application/json"};
+    let body = `{
+                  "userinfo":${cookie}
+                }`
+    return this.http.post<User>(`${this.url}/user/buy/${deal.id}`,body,{'headers':headers});
   }
 
   public bidItem(amount:number,dealId:number): Observable<void>{
