@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Pokemon } from '../pokemon/pokemon';
 import { Deal } from './main-menu';
 
 @Injectable({
@@ -73,6 +74,11 @@ export class MainMenuService {
                   "price":${price},
                   "trade_for":${trade_for}`;
     return this.http.post<void>(`${this.url}/deal/sell`,body,{'headers':headers});
+  }
+
+  public getWishlistNotify(): Observable<Pokemon[]> {
+    // console.log("is this thing on?");
+    return this.http.get<Pokemon[]>(`${this.url}/user/notify`,{withCredentials:true});
   }
 
   //helper function
