@@ -96,7 +96,7 @@ public class UserResource {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    @PutMapping(value = "/bid/{id}", consumes = "application/json")
+    @PostMapping(value = "/put/bid/{id}", consumes = "application/json")
     public ResponseEntity<?> processAuction(@CookieValue("userinfo") String userinfo,
                                             @PathVariable("id") Integer id,
                                             @RequestBody Map<String, String> json,
@@ -145,7 +145,7 @@ public class UserResource {
     }
 
     //front end will send in a put request with request body of a json of form {"amount":"-399.99"}
-    @PutMapping(value = "/load",consumes = "application/json")
+    @PostMapping(value = "/put/load",consumes = "application/json")
     public ResponseEntity<?> loadBalance(@CookieValue("userinfo") String userinfo,
                                          @RequestBody Map<String, String> json,
                                          HttpServletResponse resp) throws JsonProcessingException {
