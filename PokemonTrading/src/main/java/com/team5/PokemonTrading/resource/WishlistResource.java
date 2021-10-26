@@ -35,7 +35,7 @@ public class WishlistResource {
         return new ResponseEntity<>(myItems, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/delete/{id}")
     public ResponseEntity<?> deleteWishlist(@PathVariable("id") Integer id,
                                             @CookieValue("userinfo") String userinfo) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
