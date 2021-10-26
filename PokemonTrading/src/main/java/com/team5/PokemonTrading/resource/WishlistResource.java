@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/wishlist")
@@ -27,9 +28,10 @@ public class WishlistResource {
         return new ResponseEntity<>(newWishlist, HttpStatus.CREATED);
     }
 
-    @GetMapping("/view")
-    public ResponseEntity<List<Wishlist>> viewMyWishlist(@CookieValue("userinfo") String userinfo) throws JsonProcessingException {
+    @GetMapping(value = "/view",consumes = "application/json")
+    public ResponseEntity<List<Wishlist>> viewMyWishlist(@RequestBody Map<String, String> json) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
+        String userinfo = json.get("userinfo");
         User user = om.readValue(userinfo, User.class);
         List<Wishlist> myItems = wishlistServices.viewMyWishlist(user.getId());
         return new ResponseEntity<>(myItems, HttpStatus.OK);
@@ -37,8 +39,9 @@ public class WishlistResource {
 
     @PostMapping("/delete/delete/{id}")
     public ResponseEntity<?> deleteWishlist(@PathVariable("id") Integer id,
-                                            @CookieValue("userinfo") String userinfo) throws JsonProcessingException{
+                                            @RequestBody Map<String, String> json) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
+        String userinfo = json.get("userinfo");
         User user = om.readValue(userinfo,User.class);
         Wishlist wl = wishlistServices.getById(id);
         //check to see if the wishlist owner matches cookie holder

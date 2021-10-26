@@ -32,25 +32,25 @@ public class FrontResource {
 
     //json web token
     @PostMapping(path = "/login",consumes = "application/json")
-    public ResponseEntity<?> userLogin(@RequestBody Map<String,String> json, HttpServletResponse resp) throws JsonProcessingException {
+    public ResponseEntity<String> userLogin(@RequestBody Map<String,String> json, HttpServletResponse resp) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         String username = json.get("username");
         String password = json.get("password");
         try {
             User u = userServices.findUserByUsername(username);
             if(!u.getPassword().equals(password)){
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>("incorrect password",HttpStatus.FORBIDDEN);
             }
             else{
                 dealServices.updateDeals();
-                Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
-                cookie.setPath("/");
-                resp.addCookie(cookie);
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                //Cookie cookie = new Cookie("userinfo",om.writeValueAsString(u));
+                //cookie.setPath("/");
+                //resp.addCookie(cookie);
+                return new ResponseEntity<>(om.writeValueAsString(u),HttpStatus.OK);
             }
         }
         catch (UserNotFoundException e){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("user does not exist",HttpStatus.FORBIDDEN);
         }
     }
 
@@ -70,7 +70,7 @@ public class FrontResource {
             new_u.setBalance(5f);
             userServices.addUser(new_u);
             //ask this one, whether return no content or return the user object back
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
 }
