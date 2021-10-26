@@ -68,7 +68,7 @@ public class DealResource {
     }
 
     //to delete/remove market item by id //thank you Ton for taking it from here.
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/delete/{id}")
     public ResponseEntity<?> deleteMyDeal(@PathVariable("id") Integer id,
                                             @CookieValue("userinfo") String userinfo) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
