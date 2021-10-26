@@ -19,6 +19,6 @@ export class BalanceService {
                       "amount":"${amount}"
                     }`
     //console.log(body);
-    return this.http.put<void>(`${this.url}/user/load`,body,{'headers':headers,withCredentials:true});
+    return this.http.post<void>(`${this.url}/user/put/load`,body,{'headers':headers,withCredentials:true});
   }
 }

@@ -19,11 +19,11 @@ export class PokemonService {
   }
 
   public updatePokemon(pokemon: Pokemon): Observable<Pokemon> {
-    return this.http.put<Pokemon>(`${this.apiServerUrl}/pokemon/update`, pokemon);
+    return this.http.post<Pokemon>(`${this.apiServerUrl}/pokemon/put/update`, pokemon);
   }
 
   public deletePokemon(pokemonId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/pokemon/delete/${pokemonId}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/pokemon/delete/delete/${pokemonId}`);
   }
 
   public addWishList(pokemon:Pokemon): Observable<void>{

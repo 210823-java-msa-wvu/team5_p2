@@ -34,7 +34,7 @@ export class DealService {
 
 
   public deleteDeal(DealId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/deal/delete/${DealId}`,{withCredentials:true});
+    return this.http.post<void>(`${this.apiServerUrl}/deal/delete/delete/${DealId}`,{withCredentials:true});
   }
 }
    
