@@ -32,7 +32,7 @@
             <th>Complete Date</th>
             <th>Price</th>
             <th>Trade for</th>
-            <th>Pokemon Id</th>
+            <th>Pokemon Name</th>
             <th>Description</th>
             <th>Status</th>
           </tr>
@@ -47,7 +47,7 @@
             <td>{{transaction?.completeDate | date:'yyyy-MM-dd'}}</td>
             <td>{{transaction.price}}</td>
             <td>{{transaction.trader_for}}</td>
-            <td>{{transaction.pokeId.id}}</td>
+            <td>{{transaction.pokeId.name}}</td>
             <td>{{transaction.description}}</td>
             <td>{{transaction.status}}</td>
           </tr>
