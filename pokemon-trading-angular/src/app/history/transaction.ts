@@ -9,7 +9,7 @@ export interface Transaction{
     completeDate: string;
     price: number;
     trader_for: number;
-    pokeId: Pokemon;
+    pokeName: Pokemon;
     description: string;
     status: number;
 }
