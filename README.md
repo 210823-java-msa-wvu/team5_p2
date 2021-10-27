@@ -20,3 +20,5 @@ Pokemon Trading Platform
  - Users can acquire pokemons from website to sale
  - Users can evolve their pokemons through a mini game
  - Pokemons can have their unique moves and abilities (only if they can learn that move/ability)
+
+Team members: [Albert Miao](https://github.com/y888miao), [That Ton](https://github.com/tungtt0806), [Damola Ajao](https://github.com/DistractedBranches), [Sergio Lopez](https://github.com/lopezbraca96)
