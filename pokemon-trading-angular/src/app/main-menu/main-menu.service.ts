@@ -43,6 +43,13 @@ export class MainMenuService {
               }`
     return this.http.post<User>(`${this.url}/user/put/bid/${dealId}`,body,{'headers':headers});
   }
+
+  public getInfo():Observable<User>{
+    let cookie = this.cookieService.get("userinfo");
+    let user = JSON.parse(JSON.parse(cookie));
+    //console.log(user);
+    return this.http.get<User>(`${this.url}/user/getinfo/${user.id}`);
+  }
   /*
   public createSell(form:NgForm): Observable<void>{
     const headers = {'content-type':"application/json"};

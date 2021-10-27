@@ -39,6 +39,13 @@ public class UserResource {
         return new ResponseEntity<>(deals, HttpStatus.OK);
     }
 
+    @GetMapping("/getinfo/{id}")
+    public ResponseEntity<?> getMyInfo(@PathVariable("id") Integer id) throws JsonProcessingException {
+        ObjectMapper om = new ObjectMapper();
+        User u=userServices.findUserById(id);
+        return new ResponseEntity<>(om.writeValueAsString(u), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/notify",consumes = "application/json")
     public ResponseEntity<List<Pokemon>> wishlistNotify (@RequestBody Map<String, String> json) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();

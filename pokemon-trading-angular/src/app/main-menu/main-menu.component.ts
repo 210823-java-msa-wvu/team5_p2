@@ -89,7 +89,7 @@ export class MainMenuComponent implements OnInit {
   public doBuy(deal:Deal):void{
     this.mainMenuService.buyItem(deal).subscribe(
       (response)=>{
-        let cookieValue:string=`"{\\"id\\":${response.id},\\"username\\":\\"${response.username}\\",\\"password\\":\\"${response.password}\\",\\"balance\\":${response.balance}}"`
+        let cookieValue:string=`"{\\"id\\":${response.id},\\"username\\":\\"${response.username}\\",\\"password\\":\\"${response.password}\\",\\"balance\\":${response.balance}}"`;
         //console.log(cookieValue);
         this.cookieService.set('userinfo',cookieValue);
         //console.log(this.cookieService.get('userinfo'));
@@ -150,8 +150,18 @@ export class MainMenuComponent implements OnInit {
 
 
   public populateUser():void{
-    let cookie = this.cookieService.get("userinfo");
-    this.currentUser = JSON.parse(JSON.parse(cookie));
+    this.mainMenuService.getInfo().subscribe(
+      (response)=>{
+        let cookieValue:string=`"{\\"id\\":${response.id},\\"username\\":\\"${response.username}\\",\\"password\\":\\"${response.password}\\",\\"balance\\":${response.balance}}"`;
+        this.cookieService.set('userinfo',cookieValue);
+        let cookie = this.cookieService.get("userinfo");
+        this.currentUser = JSON.parse(JSON.parse(cookie));
+        console.log(this.currentUser);
+      },
+      (error)=>{
+        alert(error);
+      }
+    )
   }
 
   public logout():void{
@@ -196,7 +206,7 @@ export class MainMenuComponent implements OnInit {
     this.mainMenuService.getWishlistNotify().subscribe(
       (response: Pokemon[]) => {
         this.pokeWishlists = response;
-        console.log(this.pokeWishlists);
+        //console.log(this.pokeWishlists);
         for (var val of response) {
           this.alertService.success('Your pokemon from wishlist ' + val.name + ' is on market now!');
         }
