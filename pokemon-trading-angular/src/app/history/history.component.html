@@ -45,7 +45,7 @@
             <td *ngIf = "transaction.buyer == null">No Buyer</td>
             <td>{{transaction?.seller.username}}</td>
             <td>{{transaction?.completeDate | date:'yyyy-MM-dd'}}</td>
-            <td>{{transaction.price}}</td>
+            <td>${{transaction.price}}</td>
             <td>{{transaction.trader_for}}</td>
             <td>{{transaction.pokeId.name}}</td>
             <td>{{transaction.description}}</td>
